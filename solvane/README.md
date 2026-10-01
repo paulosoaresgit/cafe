@@ -1,30 +1,53 @@
-# SOLVANE storefront
+# SOLVANE storefront — Shopify Payments-ready architecture
 
-Independent white-label coffee storefront built directly in GitHub. It does not reuse the old Keurig/Staples page structure, copy, logos or branded assets.
+Independent custom storefront built directly in GitHub. The storefront is designed to redirect buyers to Shopify Checkout so the connected Shopify store can use Shopify Payments.
 
-## Local structure
+## Checkout safety gate
 
-- `index.html` – application shell
-- `styles.css` – storefront design system
-- `config.js` – public product/business configuration
-- `app.js` – routing, cart and frontend interactions
-- `api/create-checkout-session.js` – Stripe Checkout session creation
-- `api/stripe-webhook.js` – Stripe webhook verification
-- `vercel.json` – clean routes / SPA rewrites
+Checkout is intentionally disabled until the real merchant, product and fulfillment information is configured.
 
-## Before checkout can go live
+Public business data required in config.js:
 
-Fill verified public data in `config.js`, then set matching server-side environment variables in the hosting provider:
+- legal business name
+- trading name
+- company number, when applicable
+- VAT number, when applicable
+- support email
+- support phone
+- real business address
+- processing time
+- delivery estimate
+- shipping regions
+- return window
+- refund processing time
+- return-shipping responsibility
+- warranty terms, if offered
 
-- `STRIPE_SECRET_KEY`
-- `STRIPE_PRICE_ID`
-- `STRIPE_WEBHOOK_SECRET`
-- `SITE_URL`
-- `STORE_READY=true`
-- optional `ALLOWED_COUNTRIES=US`
+Product checks required before enabling checkout:
 
-The frontend intentionally ships with checkout disabled. Do not set `STORE_READY=true` until price, inventory, legal seller identity, support, shipping and return information are accurate.
+- privateLabelAuthorizationConfirmed
+- productPhotosVerified
+- specificationsVerified
+- fulfillmentInventoryConfirmed
 
-## Product photography
+Do not relabel a third-party branded product as SOLVANE unless you have legitimate authorization to sell/private-label it and the customer receives the exact product described.
 
-Current imagery is licensed lifestyle photography used only as a staging presentation. Replace it with verified, licensed photography of the actual private-label product before launch.
+## Shopify Storefront configuration
+
+The frontend creates a Shopify Cart through the Storefront API and redirects to the returned checkoutUrl.
+
+Configure:
+
+- shopify.enabled = true
+- shopify.storeDomain
+- shopify.storefrontAccessToken
+- shopify.variantId
+- shopify.apiVersion = 2026-07
+
+The Storefront token is a public storefront credential. Never put Shopify Admin API tokens, payment secrets, passwords, or private credentials in this public repository.
+
+## Operating standards
+
+The code cannot guarantee Shopify Payments approval or prevent reserves. Keep store/account data consistent with official records, fulfill within promised timelines, attach tracking, maintain responsive support, issue legitimate refunds promptly, use a recognizable customer statement descriptor, and monitor disputes.
+
+Current staging imagery must be replaced by accurate licensed photos of the exact product before productPhotosVerified is set to true.
