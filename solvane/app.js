@@ -3,8 +3,8 @@
   const app = document.getElementById("app");
   const GH = location.hostname.endsWith("github.io");
   const GH_BASE = "/cafe/solvane";
-  const PHOTO_1 = "https://images.unsplash.com/photo-1746289573063-2bee3bd96667?auto=format&fit=crop&fm=jpg&q=82&w=1800";
-  const PHOTO_2 = "https://images.unsplash.com/photo-1712926097966-b86f0d8c131d?auto=format&fit=crop&fm=jpg&q=82&w=1800";
+  const PHOTO_1 = "https://images.unsplash.com/photo-1774530964295-c71786eedf58?auto=format&fit=crop&fm=jpg&q=85&w=1800";
+  const PHOTO_2 = "https://images.unsplash.com/photo-1756949333564-8148a9506369?auto=format&fit=crop&fm=jpg&q=85&w=1800";
   const PHOTO_3 = "https://images.unsplash.com/photo-1772442363880-17ad476bdfee?auto=format&fit=crop&fm=jpg&q=82&w=1800";
   const money = c => c == null ? null : new Intl.NumberFormat("en-US",{style:"currency",currency:cfg.product.currency}).format(c/100);
   const storeReady = Boolean(
@@ -75,7 +75,7 @@
   function home(){
     return `
     <section class="hero"><div class="container hero-grid">
-      <div><p class="eyebrow">SOLVANE ONE</p><h1>Coffee, without the complication.</h1><p class="lead">A focused single-serve coffee maker designed for an easier everyday routine. Final product specifications and photography will be published only after supplier verification.</p><a class="btn" href="/products/solvane-one">Shop Solvane One</a></div>
+      <div><p class="eyebrow">SOLVANE ONE</p><h1>Coffee, without the complication.</h1><p class="lead">A premium 3-in-1 coffee machine for espresso, filter coffee and cold brew, with a built-in conical burr grinder and 19-bar pump.</p><a class="btn" href="/products/solvane-one">Shop Solvane One</a></div>
       <div class="hero-media"><img src="${PHOTO_1}" alt="Modern coffee setup in a home kitchen" fetchpriority="high"></div>
     </div></section>
     ${benefits()}
@@ -83,7 +83,7 @@
       <div class="section-head"><div><p class="eyebrow">SHOP COFFEE MAKERS</p><h2>Meet Solvane One.</h2></div><p>Everything on the product page is structured for transparent checkout, fulfillment and returns.</p></div>
       <article class="product-card">
         <div class="product-card-media"><img src="${PHOTO_2}" alt="Modern kitchen coffee station"></div>
-        <div class="product-card-copy"><p class="eyebrow">SINGLE-SERVE</p><h3>Solvane One</h3><p>A clean, practical coffee maker for daily use. No unverified specifications or inflated claims.</p>${productPrice()}<a class="btn" href="/products/solvane-one">View product</a></div>
+        <div class="product-card-copy"><p class="eyebrow">SINGLE-SERVE</p><h3>Solvane One</h3><p>Espresso, filter coffee and cold brew in one machine, with a built-in grinder, milk frothing system and removable water tank.</p>${productPrice()}<a class="btn" href="/products/solvane-one">View product</a></div>
       </article>
     </div></section>
     <section class="section soft"><div class="container">
@@ -112,10 +112,10 @@
         <div class="main-image"><img id="mainProductImage" src="${gallery[0]}" alt="Solvane One lifestyle product presentation"></div>
       </section>
       <aside class="buybox">
-        <p class="eyebrow">SOLVANE</p><h1>Solvane One</h1><p class="subtitle">Single-Serve Coffee Maker</p>
+        <p class="eyebrow">SOLVANE</p><h1>Solvane One</h1><p class="subtitle">3-in-1 Espresso, Filter Coffee & Cold Brew Machine</p>
         ${productPrice()}
         <div class="status"><span class="dot"></span><span>${cfg.product.available?'Available':'Not available for purchase yet'}</span></div>
-        <p style="color:var(--muted);font-size:14px">Final product photography, specifications and included items will replace the current lifestyle presentation before launch.</p>
+        <p style="color:var(--muted);font-size:14px">Product specifications and box contents are listed below. Checkout remains disabled until the store business details and Stripe configuration are completed.</p>
         <div class="quantity"><button id="qtyMinus" aria-label="Decrease quantity">−</button><span id="qty">1</span><button id="qtyPlus" aria-label="Increase quantity">+</button></div>
         <div class="buy-actions"><button class="btn" id="addCart" ${cfg.product.priceCents?'':'disabled'}>Add to cart</button><button class="btn secondary" id="buyNow" ${storeReady?'':'disabled'}>Buy now</button></div>
         <div class="trust-list">
@@ -126,7 +126,7 @@
       </aside>
     </main>
     <section class="container pdp-details"><div class="details-wrap">
-      <details open><summary>Product details<span>+</span></summary><p>Solvane One is positioned as a straightforward single-serve coffee maker for everyday home use. Specific performance claims will only be added after verification.</p></details>
+      <details open><summary>Product details<span>+</span></summary><p>Solvane One Barista combines espresso, filter coffee and cold brew in one machine, with a built-in conical burr grinder, 19-bar pump pressure and an automatic milk-frothing system.</p></details>
       <details><summary>Specifications<span>+</span></summary><p>${cfg.product.verifiedSpecs.length?cfg.product.verifiedSpecs.join(" · "):"Verified technical specifications have not been published yet."}</p></details>
       <details><summary>What's included<span>+</span></summary><p>${cfg.product.includedItems.length?cfg.product.includedItems.join(", "):"Box contents will be published after supplier verification."}</p></details>
       <details><summary>Shipping & returns<span>+</span></summary><p>See the <a href="/shipping"><u>Shipping Policy</u></a> and <a href="/returns"><u>Returns & Refunds</u></a> pages for the terms that will apply when checkout is enabled.</p></details>
@@ -178,7 +178,7 @@
     if(badge) badge.textContent=cart.qty||0;
     if(!body||!foot)return;
     if(!cart.qty){body.innerHTML='<div style="text-align:center;padding:80px 10px;color:var(--muted)">Your cart is empty.</div>';foot.innerHTML='';return}
-    body.innerHTML='<div class="cart-item"><img src="'+PHOTO_2+'" alt=""><div><strong>Solvane One</strong><div style="color:var(--muted);font-size:13px">Single-Serve Coffee Maker</div><div style="margin-top:14px">Qty: '+cart.qty+'</div></div></div>';
+    body.innerHTML='<div class="cart-item"><img src="'+PHOTO_2+'" alt=""><div><strong>Solvane One</strong><div style="color:var(--muted);font-size:13px">3-in-1 Espresso, Filter Coffee & Cold Brew Machine</div><div style="margin-top:14px">Qty: '+cart.qty+'</div></div></div>';
     foot.innerHTML='<div class="drawer-foot-row"><span>Subtotal</span><span>'+(money(cfg.product.priceCents*cart.qty)||'Available at launch')+'</span></div><button class="btn" id="checkoutBtn" '+(storeReady?'':'disabled')+'>Checkout</button>'+(storeReady?'':'<p style="font-size:12px;color:var(--muted);text-align:center">Checkout is disabled until store setup is complete.</p>');
     const checkout=document.getElementById("checkoutBtn"); if(checkout&&!checkout.disabled) checkout.onclick=()=>startCheckout(cart.qty);
   }
