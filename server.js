@@ -18,6 +18,17 @@ const types = {
 };
 
 http.createServer((req,res)=>{
+  const host = (req.headers.host || "").split(":")[0].toLowerCase();
+
+  // Keep one canonical domain for SEO and analytics.
+  if (host === "www.sharkninja.site") {
+    res.writeHead(301, {
+      "Location": "https://sharkninja.site" + (req.url || "/"),
+      "Cache-Control": "public, max-age=3600"
+    });
+    return res.end();
+  }
+
   let pathname = decodeURIComponent(new URL(req.url, "http://localhost").pathname);
   let file = path.join(root, pathname === "/" ? "index.html" : pathname.replace(/^\//,""));
   if (!file.startsWith(root)) { res.writeHead(403); return res.end("Forbidden"); }
