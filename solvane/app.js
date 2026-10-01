@@ -1,227 +1,75 @@
 (() => {
-  const cfg = window.SOLVANE_CONFIG;
-  const app = document.getElementById("app");
-  const GH = location.hostname.endsWith("github.io");
-  const GH_BASE = "/cafe/solvane";
-  const PHOTO_1 = "https://images.unsplash.com/photo-1774530964295-c71786eedf58?auto=format&fit=crop&fm=jpg&q=85&w=1800";
-  const PHOTO_2 = "https://images.unsplash.com/photo-1756949333564-8148a9506369?auto=format&fit=crop&fm=jpg&q=85&w=1800";
-  const PHOTO_3 = "https://images.unsplash.com/photo-1772442363880-17ad476bdfee?auto=format&fit=crop&fm=jpg&q=82&w=1800";
-  const money = c => c == null ? null : new Intl.NumberFormat("en-US",{style:"currency",currency:cfg.product.currency}).format(c/100);
-  const storeReady = Boolean(
-    cfg.checkout.enabled && cfg.product.priceCents && cfg.product.available &&
-    cfg.business.legalName && cfg.business.supportEmail && cfg.business.address &&
-    cfg.business.returnWindowDays && cfg.business.processingTime && cfg.business.deliveryEstimate
-  );
+  const cfg=window.SOLVANE_CONFIG, app=document.getElementById("app");
+  const GH=location.hostname.endsWith("github.io"), GH_BASE="/cafe/solvane";
+  const PHOTOS=[
+    "https://images.unsplash.com/photo-1707241358597-bafcc8a8e73d?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+    "https://images.unsplash.com/photo-1774530964295-c71786eedf58?auto=format&fit=crop&fm=jpg&q=85&w=1800",
+    "https://images.unsplash.com/photo-1756949333564-8148a9506369?auto=format&fit=crop&fm=jpg&q=85&w=1800"
+  ];
+  const money=c=>new Intl.NumberFormat("en-GB",{style:"currency",currency:cfg.product.currency}).format((c||0)/100);
+  const ready=Boolean(cfg.checkout.enabled&&cfg.business.legalName&&cfg.business.supportEmail&&cfg.business.address&&cfg.business.returnWindowDays&&cfg.business.processingTime&&cfg.business.deliveryEstimate);
 
-  const icon = name => {
-    const paths = {
-      menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',
-      search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
-      user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
-      bag:'<path d="M6 8h12l1 13H5L6 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/>',
-      shield:'<path d="M12 3 5 6v6c0 4.5 2.9 7.6 7 9 4.1-1.4 7-4.5 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/>',
-      box:'<path d="m21 8-9 5-9-5 9-5 9 5Z"/><path d="M3 8v9l9 5 9-5V8M12 13v9"/>',
-      headset:'<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><path d="M4 14h3v6H5a1 1 0 0 1-1-1v-5ZM20 14h-3v6h2a1 1 0 0 0 1-1v-5ZM17 20c-1 1-2 1-4 1"/>',
-      return:'<path d="M9 7H5v-4"/><path d="M5 7a8 8 0 1 1-1 8"/>'
-    };
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+paths[name]+'</svg>';
+  const I=n=>{
+    const p={bag:'<path d="M6 8h12l1 13H5L6 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/>',search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',truck:'<path d="M3 6h11v10H3z"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/>',return:'<path d="M9 7H5V3"/><path d="M5 7a8 8 0 1 1-1 8"/>',shield:'<path d="M12 3 5 6v6c0 4.5 2.9 7.6 7 9 4.1-1.4 7-4.5 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/>',support:'<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><path d="M4 14h3v6H5a1 1 0 0 1-1-1v-5ZM20 14h-3v6h2a1 1 0 0 0 1-1v-5Z"/>',grind:'<circle cx="12" cy="12" r="8"/><path d="M12 4v4M12 16v4M4 12h4M16 12h4"/>',cup:'<path d="M5 8h11v7a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5V8Z"/><path d="M16 10h2a3 3 0 0 1 0 6h-2"/>',droplet:'<path d="M12 3s6 6 6 11a6 6 0 1 1-12 0c0-5 6-11 6-11Z"/>'};
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+p[n]+'</svg>';
   };
+  const header=()=>`<div class="topbar"><div class="shell">SOLVANE ONE BARISTA · ${money(cfg.product.priceCents)}</div></div><header class="header"><div class="shell"><nav class="nav"><a href="/">Shop</a><a href="/about">About</a><a href="/contact">Support</a></nav><a class="wordmark" href="/">SOLVANE</a><div class="actions"><button class="icon" aria-label="Search">${I("search")}</button><button class="icon account" aria-label="Account">${I("user")}</button><button class="icon" id="cartBtn" aria-label="Cart" style="position:relative">${I("bag")}<span class="cartCount" id="cartCount">0</span></button></div></div></header>`;
+  const usps=()=>`<section class="usps"><div class="shell uspGrid"><div class="usp">${I("truck")}<div><b>Delivery information</b><span>Shown clearly before checkout</span></div></div><div class="usp">${I("return")}<div><b>Clear returns</b><span>Policy available before purchase</span></div></div><div class="usp">${I("shield")}<div><b>Secure checkout</b><span>Stripe-hosted payment flow</span></div></div><div class="usp">${I("support")}<div><b>Customer support</b><span>Order and product assistance</span></div></div></div></section>`;
 
-  function header(){
-    return `
-    ${!storeReady?'<div class="setup">Preview mode: checkout stays disabled until verified business, product and Stripe settings are configured.</div>':''}
-    <div class="utility"><div class="container"><a href="/shipping">Shipping</a><a href="/returns">Returns</a><a href="/contact">Support</a></div></div>
-    <header class="header">
-      <div class="container header-row">
-        <button class="icon-btn mobile-menu-btn" id="menuBtn" aria-label="Open menu">${icon("menu")}</button>
-        <nav class="nav"><a href="/products/solvane-one">Coffee Makers</a><a href="/about">About</a><a href="/contact">Support</a></nav>
-        <a class="wordmark" href="/">SOLVANE</a>
-        <div class="header-actions">
-          <button class="icon-btn" aria-label="Search">${icon("search")}</button>
-          <button class="icon-btn" aria-label="Account">${icon("user")}</button>
-          <button class="icon-btn" id="cartBtn" aria-label="Cart" style="position:relative">${icon("bag")}<span class="cart-badge" id="cartBadge">0</span></button>
-        </div>
-      </div>
-    </header>
-    <nav class="mobile-nav" id="mobileNav"><a href="/products/solvane-one">Coffee Makers</a><a href="/about">About</a><a href="/contact">Support</a><a href="/shipping">Shipping</a><a href="/returns">Returns</a></nav>`;
+  function productTop(){
+    return `<section class="pdpWrap"><div class="shell pdp"><div class="gallery"><div class="thumbs">${PHOTOS.map((p,i)=>`<button class="thumb ${i===0?"active":""}" data-img="${p}"><img src="${p}" alt=""></button>`).join("")}</div><figure class="stage"><img id="mainImage" src="${PHOTOS[0]}" alt="Solvane One Barista coffee machine"></figure></div><aside class="buy"><div class="badges"><span class="badge main">SOLVANE ONE</span><span class="badge">3-in-1</span><span class="badge">Built-in grinder</span></div><h1>${cfg.product.name}</h1><p class="subtitle">${cfg.product.subtitle}</p><div class="price">${money(cfg.product.priceCents)}</div><p class="tax">Tax included where applicable. Shipping terms are shown before checkout.</p><div class="stock">Available</div><div class="finish"><div class="label"><span>Finish</span><span>${cfg.product.finish}</span></div><div class="finishBox"><span>Stainless Steel / Black</span><span class="swatch"></span></div></div><div class="qtyRow"><div class="qty"><button id="minus">−</button><span id="qty">1</span><button id="plus">+</button></div><button class="btn add" id="add">Add to cart · ${money(cfg.product.priceCents)}</button></div><button class="btn light buyNow" id="buyNow" ${ready?"":"disabled"}>Buy now</button><p class="paynote">${ready?"Secure checkout":"Checkout activates after verified business and Stripe settings are completed."}</p><div class="trust"><div class="trustRow">${I("truck")}<div><b>Shipping</b><span>${cfg.business.deliveryEstimate||"Delivery estimate shown before checkout opens."}</span></div></div><div class="trustRow">${I("return")}<div><b>Returns</b><span>${cfg.business.returnWindowDays?cfg.business.returnWindowDays+"-day return window":"Full return terms shown before checkout opens."}</span></div></div><div class="trustRow">${I("shield")}<div><b>Payment security</b><span>Card details are handled by the payment provider, not stored in this storefront.</span></div></div></div><div class="highlights"><h3>Key highlights</h3><ul><li>Espresso, filter coffee and cold brew from one machine</li><li>Built-in conical burr grinder with 30 grind settings</li><li>19-bar pump pressure</li><li>1.5 L removable water tank</li><li>Automatic milk-frothing system</li></ul></div></aside></div></section>`;
   }
 
-  function footer(){
-    return `<footer class="footer">
-      <div class="container footer-grid">
-        <div><div class="wordmark" style="text-align:left">SOLVANE</div><p>Thoughtful coffee essentials for simpler everyday routines.</p></div>
-        <div><h4>SHOP</h4><div class="footer-links"><a href="/products/solvane-one">Solvane One</a><a href="/track">Order tracking</a></div></div>
-        <div><h4>CUSTOMER SERVICE</h4><div class="footer-links"><a href="/contact">Contact</a><a href="/shipping">Shipping</a><a href="/returns">Returns & refunds</a></div></div>
-        <div><h4>COMPANY</h4><div class="footer-links"><a href="/about">About</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div>
-      </div>
-      <div class="container footer-bottom"><span>© ${new Date().getFullYear()} Solvane. All rights reserved.</span><span>Lifestyle photography sourced under the Unsplash License.</span></div>
-    </footer>`;
+  function tabs(){
+    return `<section class="tabs"><div class="shell"><div class="tabList"><button class="tabBtn active" data-tab="overview">Overview</button><button class="tabBtn" data-tab="specs">Technical specifications</button><button class="tabBtn" data-tab="box">In the box</button></div><div class="tabPanel" id="tabPanel"><p>The Solvane One Barista is a complete home-coffee system built around three everyday brew styles: espresso, filter coffee and cold brew. Its integrated grinder lets you move from whole beans to cup in one workflow, while the 19-bar pump and milk-frothing system cover espresso-based drinks without adding another appliance to the counter.</p></div></div></section>`;
+  }
+
+  function editorial(){
+    return `<section class="editorial"><div class="shell"><article class="featureRow"><div class="media"><img src="${PHOTOS[1]}" alt="Espresso preparation"></div><div class="copy"><p class="kicker">VERSATILITY</p><h2>Three coffee styles. One machine.</h2><p>Move between espresso, filter coffee and cold brew without changing appliances. Solvane One is designed to keep the workflow simple while giving you more ways to brew.</p></div></article><article class="featureRow dark flip"><div class="media"><img src="${PHOTOS[2]}" alt="Freshly brewed coffee"></div><div class="copy"><p class="kicker">FRESHNESS</p><h2>Built-in conical burr grinder.</h2><p>Whole beans are ground immediately before brewing. Thirty grind settings give you control over the grind while keeping the daily routine contained in one machine.</p></div></article><article class="featureRow"><div class="media"><img src="${PHOTOS[0]}" alt="Espresso brewing into a cup"></div><div class="copy"><p class="kicker">ESPRESSO</p><h2>19-bar pump pressure.</h2><p>The brewing system is specified around a 19-bar pump for espresso preparation, paired with a dedicated portafilter and milk-frothing workflow.</p></div></article></div></section>`;
   }
 
   function benefits(){
-    return `<section class="benefits"><div class="container benefit-grid">
-      <div class="benefit">${icon("shield")}<span>Secure checkout</span></div>
-      <div class="benefit">${icon("return")}<span>Clear return policy</span></div>
-      <div class="benefit">${icon("box")}<span>Order tracking</span></div>
-      <div class="benefit">${icon("headset")}<span>Customer support</span></div>
-    </div></section>`;
+    return `<section class="compare"><div class="shell"><h2 class="sectionTitle">Built around the daily ritual.</h2><p class="sectionLead">The page is intentionally straightforward: product first, verified specifications, clear policies and a secure checkout path.</p><div class="benefitCards"><div class="benefitCard">${I("grind")}<h3>Fresh-ground coffee</h3><p>Integrated conical burr grinder with 30 selectable grind settings.</p></div><div class="benefitCard">${I("cup")}<h3>Multiple brew styles</h3><p>Espresso, filter coffee and cold brew are supported by one system.</p></div><div class="benefitCard">${I("droplet")}<h3>Removable water tank</h3><p>1.5 litre removable reservoir for easier refilling and cleaning.</p></div></div></div></section>`;
   }
 
-  function productPrice(){
-    const p=money(cfg.product.priceCents);
-    return p ? '<div class="price">'+p+'</div>' : '<div class="price muted">Price available when launch configuration is complete.</div>';
+  function faq(){
+    return `<section class="faq"><div class="shell"><h2 class="sectionTitle">Questions, answered.</h2><details><summary>What drinks can Solvane One make?<span>+</span></summary><p>The verified product specification supports espresso, filter coffee and cold brew, along with milk-based drinks using the frothing system.</p></details><details><summary>Does it grind whole beans?<span>+</span></summary><p>Yes. The machine includes a built-in conical burr grinder with 30 grind settings.</p></details><details><summary>What comes in the box?<span>+</span></summary><p>Open the “In the box” tab above for the current included-item list.</p></details><details><summary>How do shipping and returns work?<span>+</span></summary><p>The final shipping estimate, return window and seller details will be published before checkout is enabled.</p></details></div></section>`;
   }
 
-  function home(){
-    return `
-    <section class="hero"><div class="container hero-grid">
-      <div><p class="eyebrow">SOLVANE ONE</p><h1>Coffee, without the complication.</h1><p class="lead">A premium 3-in-1 coffee machine for espresso, filter coffee and cold brew, with a built-in conical burr grinder and 19-bar pump.</p><a class="btn" href="/products/solvane-one">Shop Solvane One</a></div>
-      <div class="hero-media"><img src="${PHOTO_1}" alt="Modern coffee setup in a home kitchen" fetchpriority="high"></div>
-    </div></section>
-    ${benefits()}
-    <section class="section"><div class="container">
-      <div class="section-head"><div><p class="eyebrow">SHOP COFFEE MAKERS</p><h2>Meet Solvane One.</h2></div><p>Everything on the product page is structured for transparent checkout, fulfillment and returns.</p></div>
-      <article class="product-card">
-        <div class="product-card-media"><img src="${PHOTO_2}" alt="Modern kitchen coffee station"></div>
-        <div class="product-card-copy"><p class="eyebrow">SINGLE-SERVE</p><h3>Solvane One</h3><p>Espresso, filter coffee and cold brew in one machine, with a built-in grinder, milk frothing system and removable water tank.</p>${productPrice()}<a class="btn" href="/products/solvane-one">View product</a></div>
-      </article>
-    </div></section>
-    <section class="section soft"><div class="container">
-      <div class="section-head"><div><p class="eyebrow">WHY SOLVANE</p><h2>A store built around clarity.</h2></div></div>
-      <div class="feature-grid">
-        <div class="feature">${icon("shield")}<h3>Transparent checkout</h3><p>Pricing and availability only go live after product and payment settings are verified.</p></div>
-        <div class="feature">${icon("return")}<h3>Clear policies</h3><p>Shipping, returns, privacy and terms remain easy to find before and after purchase.</p></div>
-        <div class="feature">${icon("headset")}<h3>Real support details</h3><p>We do not publish invented addresses, reviews, support channels or certifications.</p></div>
-      </div>
-    </div></section>
-    <section class="section"><div class="container split"><div class="split-media"><img src="${PHOTO_3}" alt="Coffee machine in a modern home kitchen"></div><div class="split-copy"><p class="eyebrow">EVERYDAY COFFEE</p><h2>Made to fit the routine, not complicate it.</h2><p>The Solvane storefront is intentionally straightforward: understand the product, see the verified details, know the delivery and return terms, then check out securely.</p><a class="btn secondary" href="/about">About Solvane</a></div></div></section>
-    <section class="section faq"><div class="container"><div class="section-head"><h2>Frequently asked questions</h2></div>
-      <details><summary>When will Solvane One be available?<span>+</span></summary><p>Availability will be shown here after inventory and fulfillment details are verified. Checkout remains disabled until then.</p></details>
-      <details><summary>What are the exact product specifications?<span>+</span></summary><p>Only supplier-verified specifications will be published. Unverified numbers are intentionally omitted.</p></details>
-      <details><summary>How do returns work?<span>+</span></summary><p>The complete return window and process will appear on the Returns page before checkout is enabled.</p></details>
-      <details><summary>How can I track an order?<span>+</span></summary><p>Once fulfillment is connected, shipment tracking will be provided by email and through the Order Tracking page.</p></details>
-    </div></section>`;
-  }
+  function productPage(){return usps()+productTop()+tabs()+editorial()+benefits()+faq()}
+  function pageHero(t,d,k="SOLVANE"){return `<section class="pageHero"><div class="shell"><p class="kicker">${k}</p><h1>${t}</h1><p>${d}</p></div></section>`}
+  function about(){return pageHero("Considered coffee equipment for everyday use.","Solvane focuses on clear product design, useful functionality and a straightforward buying experience.")+`<section class="content shell"><h2>One focused product.</h2><p>Solvane One brings grinding, espresso, filter coffee and cold brew into a single home-coffee system.</p><h2>Clear product information.</h2><p>We separate verified specifications from marketing language and keep shipping, return and seller information visible before checkout.</p></section>`}
+  function policy(t,d,rows){return pageHero(t,d,"CUSTOMER SERVICE")+`<section class="content shell">${rows.map(r=>`<h2>${r[0]}</h2><p>${r[1]}</p>`).join("")}</section>`}
+  const shipping=()=>policy("Shipping policy","How orders will be processed, shipped and tracked.",[["Processing",cfg.business.processingTime||"Processing time will be published before checkout is enabled."],["Delivery",cfg.business.deliveryEstimate||"Delivery estimates and destinations will be published before checkout is enabled."],["Tracking","Tracking information will be provided after shipment when fulfillment is connected."]]);
+  const returns=()=>policy("Returns & refunds","Clear return terms before purchase.",[["Return window",cfg.business.returnWindowDays?cfg.business.returnWindowDays+" days":"The return window will be published before checkout is enabled."],["Condition","Return condition, exclusions and return-shipping responsibility will be stated before sales begin."],["Refunds","Approved refunds are returned to the original payment method."]]);
+  const privacy=()=>policy("Privacy policy","How Solvane handles store and order information.",[["Information","We may collect contact, order, device and support information needed to run the store."],["Payments","Payment-card information is handled by the payment provider and is not stored by this storefront."],["Use","Information may be used for orders, support, fraud prevention and legal obligations."]]);
+  const terms=()=>policy("Terms of use","Terms governing use of the Solvane online store.",[["Seller",cfg.business.legalName||"The legal seller identity will be published before checkout is enabled."],["Orders","Orders are subject to payment confirmation, inventory and fraud-prevention checks."],["Product information","Verified price, availability, specifications and policies are presented before purchase."]]);
+  function contact(){return pageHero("Contact Solvane","Product, order and returns support.","SUPPORT")+`<section class="content shell">${cfg.business.supportEmail?`<p>Email: <a href="mailto:${cfg.business.supportEmail}"><u>${cfg.business.supportEmail}</u></a></p>`:'<div class="notice">Support contact details will be published before checkout is enabled.</div>'}<div class="field"><label>Name</label><input></div><div class="field"><label>Email</label><input type="email"></div><div class="field"><label>Message</label><textarea></textarea></div></section>`}
+  const track=()=>pageHero("Track your order","Tracking lookup will be available when fulfillment is connected.","ORDER STATUS")+'<section class="content shell"><div class="notice">Order tracking is not active yet.</div></section>';
+  const success=()=>pageHero("Order confirmed","Your order confirmation and next steps will appear here.","ORDER");
+  const cancel=()=>pageHero("Checkout canceled","No payment was completed.","CHECKOUT");
+  const notFound=()=>pageHero("Page not found","The page you requested does not exist.");
 
-  function product(){
-    const gallery=[PHOTO_2,PHOTO_1,PHOTO_3];
-    return `<div class="container breadcrumbs"><a href="/">Home</a> / Coffee Makers / Solvane One</div>
-    <main class="container pdp">
-      <section class="gallery">
-        <div class="thumbs">${gallery.map((g,i)=>'<button class="thumb '+(i===0?'active':'')+'" data-img="'+g+'"><img src="'+g+'" alt=""></button>').join("")}</div>
-        <div class="main-image"><img id="mainProductImage" src="${gallery[0]}" alt="Solvane One lifestyle product presentation"></div>
-      </section>
-      <aside class="buybox">
-        <p class="eyebrow">SOLVANE</p><h1>Solvane One</h1><p class="subtitle">3-in-1 Espresso, Filter Coffee & Cold Brew Machine</p>
-        ${productPrice()}
-        <div class="status"><span class="dot"></span><span>${cfg.product.available?'Available':'Not available for purchase yet'}</span></div>
-        <p style="color:var(--muted);font-size:14px">Product specifications and box contents are listed below. Checkout remains disabled until the store business details and Stripe configuration are completed.</p>
-        <div class="quantity"><button id="qtyMinus" aria-label="Decrease quantity">−</button><span id="qty">1</span><button id="qtyPlus" aria-label="Increase quantity">+</button></div>
-        <div class="buy-actions"><button class="btn" id="addCart" ${cfg.product.priceCents?'':'disabled'}>Add to cart</button><button class="btn secondary" id="buyNow" ${storeReady?'':'disabled'}>Buy now</button></div>
-        <div class="trust-list">
-          <div class="trust-row">${icon("box")}<div><strong>Shipping</strong>${cfg.business.processingTime&&cfg.business.deliveryEstimate?cfg.business.processingTime+' processing · '+cfg.business.deliveryEstimate:'Published before checkout opens.'}</div></div>
-          <div class="trust-row">${icon("return")}<div><strong>Returns</strong>${cfg.business.returnWindowDays?cfg.business.returnWindowDays+'-day return window':'Full return terms published before checkout opens.'}</div></div>
-          <div class="trust-row">${icon("shield")}<div><strong>Secure checkout</strong>Hosted payment flow is prepared for Stripe and remains locked until configuration is complete.</div></div>
-        </div>
-      </aside>
-    </main>
-    <section class="container pdp-details"><div class="details-wrap">
-      <details open><summary>Product details<span>+</span></summary><p>Solvane One Barista combines espresso, filter coffee and cold brew in one machine, with a built-in conical burr grinder, 19-bar pump pressure and an automatic milk-frothing system.</p></details>
-      <details><summary>Specifications<span>+</span></summary><p>${cfg.product.verifiedSpecs.length?cfg.product.verifiedSpecs.join(" · "):"Verified technical specifications have not been published yet."}</p></details>
-      <details><summary>What's included<span>+</span></summary><p>${cfg.product.includedItems.length?cfg.product.includedItems.join(", "):"Box contents will be published after supplier verification."}</p></details>
-      <details><summary>Shipping & returns<span>+</span></summary><p>See the <a href="/shipping"><u>Shipping Policy</u></a> and <a href="/returns"><u>Returns & Refunds</u></a> pages for the terms that will apply when checkout is enabled.</p></details>
-      <details><summary>Warranty<span>+</span></summary><p>Warranty terms will be published only after the applicable product warranty is confirmed.</p></details>
-    </div></section>`;
-  }
-
-  function pageHero(title, copy, eyebrow="SOLVANE"){return '<section class="page-hero"><div class="container"><p class="eyebrow">'+eyebrow+'</p><h1 class="page-title">'+title+'</h1><p>'+copy+'</p></div></section>'}
-  function about(){return pageHero("Coffee equipment for real routines.","Solvane is building a focused home-coffee brand around straightforward products and transparent ecommerce.")+'<section class="content container"><div class="split"><div><h2>Thoughtful by default.</h2><p>Our product pages are designed to make practical information easy to find: what the product is, what it costs, what ships with it, how fulfillment works and how returns are handled.</p><h2>No invented proof.</h2><p>We do not use fabricated reviews, artificial scarcity, fake countdowns or unverified certifications. Commercial claims are added only when they can be supported.</p></div><div class="split-media"><img src="'+PHOTO_1+'" alt="Coffee setup in a home kitchen"></div></div></section>'}
-  function policy(title, intro, sections){return pageHero(title,intro,"CUSTOMER SERVICE")+'<section class="content narrow container">'+sections.map(s=>'<h2>'+s[0]+'</h2><p>'+s[1]+'</p>').join("")+'</section>'}
-  function shipping(){return policy("Shipping policy","How Solvane processes, ships and tracks orders.",[
-    ["Order processing",cfg.business.processingTime?"Orders are normally processed within "+cfg.business.processingTime+".":"Processing times will be published before checkout is enabled."],
-    ["Delivery",cfg.business.deliveryEstimate?"Estimated delivery: "+cfg.business.deliveryEstimate+".":"Delivery estimates and destinations will be published before checkout is enabled."],
-    ["Tracking","After shipment, tracking information will be sent to the customer using the contact details provided at checkout."],
-    ["Address changes","Customers should contact support promptly. Changes cannot be guaranteed once fulfillment begins."]
-  ])}
-  function returns(){return policy("Returns & refunds","Clear return terms before you buy.",[
-    ["Return window",cfg.business.returnWindowDays?"Eligible items may be returned within "+cfg.business.returnWindowDays+" days.":"The return window will be published before checkout is enabled."],
-    ["Return condition","Required condition, exclusions and any return-shipping costs will be clearly stated before sales begin."],
-    ["Damaged or incorrect items","Customers should contact support with the order number and clear photos of the item and packaging."],
-    ["Refunds","Approved refunds are returned to the original payment method; the financial institution may require additional processing time."]
-  ])}
-  function privacy(){return policy("Privacy policy","How Solvane handles personal information.",[
-    ["Information we collect","We may collect contact, order, payment-status, device and support information needed to operate the store. Payment-card details are handled by the payment provider and are not stored by this storefront."],
-    ["How information is used","Information may be used to process orders, provide support, prevent fraud, improve store performance and meet legal obligations."],
-    ["Service providers","Information may be shared with providers supporting payment, fulfillment, analytics, security and customer service only as needed for those services."],
-    ["Your choices","Where applicable, customers may request access, correction or deletion using the published support channel."],
-    ["Security","Reasonable safeguards are used, but no online service can guarantee absolute security."]
-  ])}
-  function terms(){return policy("Terms of use","Terms governing use of the Solvane online store.",[
-    ["Seller identity",cfg.business.legalName?"The seller is "+cfg.business.legalName+".":"The legal seller identity will be published before checkout is enabled."],
-    ["Orders","An order is an offer to purchase. Orders may be declined or canceled for payment, inventory, pricing, fraud-prevention or legal reasons."],
-    ["Product information","We aim to present accurate information. Verified price, availability, warranty and specifications are displayed before purchase."],
-    ["Acceptable use","Customers may use this site for lawful personal shopping and may not interfere with the site or attempt unauthorized access."]
-  ])}
-  function contact(){return pageHero("Contact Solvane","Get help with product questions, orders or returns.","SUPPORT")+'<section class="content narrow container">'+(!cfg.business.supportEmail?'<div class="notice">Customer support contact details will be published before checkout opens.</div>':'<p>Email: <a href="mailto:'+cfg.business.supportEmail+'"><u>'+cfg.business.supportEmail+'</u></a></p>')+'<form class="form-grid" id="contactForm"><div class="field"><label>Name</label><input required></div><div class="field"><label>Email</label><input type="email" required></div><div class="field full"><label>Message</label><textarea required></textarea></div><div class="field full"><button class="btn" '+(cfg.business.supportEmail?'':'disabled')+'>Send message</button></div></form></section>'}
-  function track(){return pageHero("Track your order","Shipment tracking will connect here when fulfillment is live.","ORDER STATUS")+'<section class="content narrow container"><div class="notice">Tracking lookup is not active yet because fulfillment is not connected.</div><div class="field"><label>Order or tracking number</label><input placeholder="Enter your number" disabled></div></section>'}
-  function success(){return pageHero("Thanks for your order.","Once checkout is active, confirmed orders will land here with the next steps.","ORDER CONFIRMED")}
-  function cancel(){return pageHero("Checkout canceled.","No order was completed. You can return to the product page whenever you are ready.","CHECKOUT")}
-  function notFound(){return pageHero("Page not found.","The page you requested does not exist.")+'<section class="content container"><a class="btn" href="/">Back to home</a></section>'}
-
-  function drawer(){
-    return '<div class="drawer-backdrop" id="drawerBackdrop"></div><aside class="drawer" id="drawer"><div class="drawer-head"><strong>Your cart</strong><button class="icon-btn" id="drawerClose" aria-label="Close">×</button></div><div class="drawer-body" id="drawerBody"></div><div class="drawer-foot" id="drawerFoot"></div></aside>';
-  }
-  function getCart(){try{return JSON.parse(localStorage.getItem("solvane_cart")||'{"qty":0}')}catch{return {qty:0}}}
-  function setCart(cart){localStorage.setItem("solvane_cart",JSON.stringify(cart));renderCart()}
-  function renderCart(){
-    const cart=getCart(), badge=document.getElementById("cartBadge"), body=document.getElementById("drawerBody"), foot=document.getElementById("drawerFoot");
-    if(badge) badge.textContent=cart.qty||0;
-    if(!body||!foot)return;
-    if(!cart.qty){body.innerHTML='<div style="text-align:center;padding:80px 10px;color:var(--muted)">Your cart is empty.</div>';foot.innerHTML='';return}
-    body.innerHTML='<div class="cart-item"><img src="'+PHOTO_2+'" alt=""><div><strong>Solvane One</strong><div style="color:var(--muted);font-size:13px">3-in-1 Espresso, Filter Coffee & Cold Brew Machine</div><div style="margin-top:14px">Qty: '+cart.qty+'</div></div></div>';
-    foot.innerHTML='<div class="drawer-foot-row"><span>Subtotal</span><span>'+(money(cfg.product.priceCents*cart.qty)||'Available at launch')+'</span></div><button class="btn" id="checkoutBtn" '+(storeReady?'':'disabled')+'>Checkout</button>'+(storeReady?'':'<p style="font-size:12px;color:var(--muted);text-align:center">Checkout is disabled until store setup is complete.</p>');
-    const checkout=document.getElementById("checkoutBtn"); if(checkout&&!checkout.disabled) checkout.onclick=()=>startCheckout(cart.qty);
-  }
-  function openDrawer(){document.getElementById("drawer").classList.add("open");document.getElementById("drawerBackdrop").classList.add("open")}
-  function closeDrawer(){document.getElementById("drawer").classList.remove("open");document.getElementById("drawerBackdrop").classList.remove("open")}
-  async function startCheckout(qty){
-    if (GH) return alert("Checkout is disabled in the GitHub Pages preview.");
-    try{
-      const utm={};["utm_source","utm_medium","utm_campaign","utm_content","utm_term"].forEach(k=>{const v=new URLSearchParams(location.search).get(k);if(v)utm[k]=v});
-      const res=await fetch("/api/create-checkout-session",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({quantity:qty,utm})});
-      const data=await res.json(); if(!res.ok) throw new Error(data.error||"Checkout unavailable"); location.href=data.url;
-    }catch(e){alert(e.message)}
-  }
-
-  function adaptLinksForGitHub(){
-    if(!GH) return;
-    document.querySelectorAll('a[href^="/"]').forEach(a=>{
-      const path=a.getAttribute("href");
-      a.setAttribute("href", GH_BASE + "/?path=" + encodeURIComponent(path));
-    });
-  }
+  function footer(){return `<footer class="footer"><div class="shell footerGrid"><div><div class="wordmark">SOLVANE</div><p>Considered coffee equipment for everyday routines.</p></div><div><h4>SHOP</h4><div class="links"><a href="/">Solvane One</a><a href="/track">Order tracking</a></div></div><div><h4>SUPPORT</h4><div class="links"><a href="/contact">Contact</a><a href="/shipping">Shipping</a><a href="/returns">Returns</a></div></div><div><h4>LEGAL</h4><div class="links"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div></div><div class="shell footerBottom"><span>© ${new Date().getFullYear()} Solvane.</span><span>Product imagery used for staging will be replaced with final licensed product photography before launch.</span></div></footer>`}
+  function drawer(){return '<div class="drawerBackdrop" id="backdrop"></div><aside class="drawer" id="drawer"><div class="drawerHead"><strong>Your cart</strong><button class="icon" id="close">×</button></div><div class="drawerBody" id="drawerBody"></div><div class="drawerFoot" id="drawerFoot"></div></aside>'}
+  const getCart=()=>{try{return JSON.parse(localStorage.getItem("solvane_cart")||'{"qty":0}')}catch{return{qty:0}}};
+  const setCart=c=>{localStorage.setItem("solvane_cart",JSON.stringify(c));renderCart()};
+  function renderCart(){const c=getCart(),count=document.getElementById("cartCount"),body=document.getElementById("drawerBody"),foot=document.getElementById("drawerFoot");if(count)count.textContent=c.qty||0;if(!body||!foot)return;if(!c.qty){body.innerHTML='<p style="text-align:center;color:#777;padding:70px 0">Your cart is empty.</p>';foot.innerHTML='';return}body.innerHTML=`<div class="cartItem"><img src="${PHOTOS[0]}" alt=""><div><b>${cfg.product.shortName}</b><div style="font-size:12px;color:#666;margin-top:4px">${cfg.product.finish}</div><div style="font-size:13px;margin-top:12px">Quantity: ${c.qty}</div></div></div>`;foot.innerHTML=`<div class="subtotal"><span>Subtotal</span><span>${money(cfg.product.priceCents*c.qty)}</span></div><button class="btn" id="checkout" ${ready?"":"disabled"}>Checkout</button>${ready?"":'<p style="font-size:11px;color:#777;text-align:center">Checkout is disabled until verified store settings are complete.</p>'}`;document.getElementById("checkout")?.addEventListener("click",()=>checkout(c.qty))}
+  function open(){document.getElementById("drawer").classList.add("open");document.getElementById("backdrop").classList.add("open")}function close(){document.getElementById("drawer").classList.remove("open");document.getElementById("backdrop").classList.remove("open")}
+  async function checkout(q){if(GH)return alert("Checkout is disabled in the GitHub Pages preview.");try{const r=await fetch("/api/create-checkout-session",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({quantity:q})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Checkout unavailable");location.href=d.url}catch(e){alert(e.message)}}
+  function adapt(){if(!GH)return;document.querySelectorAll('a[href^="/"]').forEach(a=>a.href=GH_BASE+"/?path="+encodeURIComponent(a.getAttribute("href")))}
 
   function mount(){
-    const ghPath = GH ? new URLSearchParams(location.search).get("path") : null;
-    const path = ghPath || (location.pathname.replace(/\/$/,"")||"/");
-    const routes={
-      "/":home,"/products/solvane-one":product,"/about":about,"/contact":contact,"/shipping":shipping,
-      "/returns":returns,"/privacy":privacy,"/terms":terms,"/track":track,"/success":success,"/cancel":cancel
-    };
-    const render=routes[path]||notFound;
-    app.innerHTML=header()+render()+footer()+drawer();
-    adaptLinksForGitHub();
-    document.getElementById("cartBtn")?.addEventListener("click",openDrawer);
-    document.getElementById("drawerClose")?.addEventListener("click",closeDrawer);
-    document.getElementById("drawerBackdrop")?.addEventListener("click",closeDrawer);
-    document.getElementById("menuBtn")?.addEventListener("click",()=>document.getElementById("mobileNav").classList.toggle("open"));
-    document.querySelectorAll(".thumb").forEach(t=>t.addEventListener("click",()=>{document.querySelectorAll(".thumb").forEach(x=>x.classList.remove("active"));t.classList.add("active");document.getElementById("mainProductImage").src=t.dataset.img}));
-    let qty=1; const q=document.getElementById("qty"); document.getElementById("qtyMinus")?.addEventListener("click",()=>{qty=Math.max(1,qty-1);q.textContent=qty});document.getElementById("qtyPlus")?.addEventListener("click",()=>{qty++;q.textContent=qty});
-    document.getElementById("addCart")?.addEventListener("click",()=>{const c=getCart();c.qty=(c.qty||0)+qty;setCart(c);openDrawer()});
-    document.getElementById("buyNow")?.addEventListener("click",()=>startCheckout(qty));
-    document.getElementById("contactForm")?.addEventListener("submit",e=>{e.preventDefault(); if(cfg.business.supportEmail) location.href="mailto:"+cfg.business.supportEmail});
-    renderCart();
-    document.title = path==="/" ? "Solvane | Coffee, made simple" : (document.querySelector("h1")?.textContent||"Solvane")+" | Solvane";
+    const qp=new URLSearchParams(location.search).get("path");
+    const path=qp||(location.pathname.replace(/\/$/,"")||"/");
+    const routes={"/":productPage,"/products/solvane-one":productPage,"/about":about,"/contact":contact,"/shipping":shipping,"/returns":returns,"/privacy":privacy,"/terms":terms,"/track":track,"/success":success,"/cancel":cancel};
+    app.innerHTML=header()+(routes[path]||notFound)()+footer()+drawer()+`<div class="stickyBar"><div class="info"><b>${cfg.product.shortName}</b><span>${money(cfg.product.priceCents)}</span></div><button class="btn" id="stickyAdd">Add to cart</button></div>`;
+    adapt();renderCart();
+    document.getElementById("cartBtn")?.addEventListener("click",open);document.getElementById("close")?.addEventListener("click",close);document.getElementById("backdrop")?.addEventListener("click",close);
+    document.querySelectorAll(".thumb").forEach(t=>t.addEventListener("click",()=>{document.querySelectorAll(".thumb").forEach(x=>x.classList.remove("active"));t.classList.add("active");document.getElementById("mainImage").src=t.dataset.img}));
+    let q=1;const qs=document.getElementById("qty");document.getElementById("minus")?.addEventListener("click",()=>{q=Math.max(1,q-1);qs.textContent=q});document.getElementById("plus")?.addEventListener("click",()=>{q++;qs.textContent=q});
+    const add=()=>{const c=getCart();c.qty=(c.qty||0)+q;setCart(c);open()};document.getElementById("add")?.addEventListener("click",add);document.getElementById("stickyAdd")?.addEventListener("click",add);document.getElementById("buyNow")?.addEventListener("click",()=>checkout(q));
+    document.querySelectorAll(".tabBtn").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tabBtn").forEach(x=>x.classList.remove("active"));b.classList.add("active");const id=b.dataset.tab,p=document.getElementById("tabPanel");if(id==="overview")p.innerHTML='<p>The Solvane One Barista is a complete home-coffee system built around espresso, filter coffee and cold brew. Its integrated grinder keeps the bean-to-cup workflow in one machine while the milk-frothing system supports espresso-based drinks.</p>';if(id==="specs")p.innerHTML='<table class="spec">'+cfg.product.verifiedSpecs.map(x=>'<tr><th>'+x[0]+'</th><td>'+x[1]+'</td></tr>').join("")+'</table>';if(id==="box")p.innerHTML='<ul class="boxlist">'+cfg.product.includedItems.map(x=>'<li>'+x+'</li>').join("")+'</ul>'}));
   }
   mount();
 })();
