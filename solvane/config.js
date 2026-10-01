@@ -8,8 +8,11 @@ window.SOLVANE_CONFIG = {
     slug: "solvane-one",
     priceCents: 11999,
     currency: "GBP",
-    available: true,
     finish: "Stainless Steel / Black",
+    privateLabelAuthorizationConfirmed: false,
+    productPhotosVerified: false,
+    specificationsVerified: true,
+    fulfillmentInventoryConfirmed: false,
     verifiedSpecs: [
       ["Dimensions", "32 × 30 × 40 cm"],
       ["Weight", "8.5 kg"],
@@ -35,11 +38,29 @@ window.SOLVANE_CONFIG = {
   },
   business: {
     legalName: "",
+    tradingName: "SOLVANE",
+    companyNumber: "",
+    vatNumber: "",
     supportEmail: "",
+    supportPhone: "",
     address: "",
-    returnWindowDays: "",
-    processingTime: "",
-    deliveryEstimate: ""
+    country: "United Kingdom"
   },
-  checkout: { enabled: false }
+  policies: {
+    processingTime: "",
+    deliveryEstimate: "",
+    shippingRegions: "",
+    returnWindowDays: "",
+    refundProcessingTime: "",
+    returnShippingResponsibility: "",
+    warranty: ""
+  },
+  shopify: {
+    enabled: false,
+    storeDomain: "",
+    storefrontAccessToken: "",
+    variantId: "",
+    apiVersion: "2026-07",
+    statementDescriptor: "SOLVANE"
+  }
 };
