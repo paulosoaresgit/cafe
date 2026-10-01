@@ -1,6 +1,8 @@
 (() => {
   const cfg = window.SOLVANE_CONFIG;
   const app = document.getElementById("app");
+  const GH = location.hostname.endsWith("github.io");
+  const GH_BASE = "/cafe/solvane";
   const PHOTO_1 = "https://images.unsplash.com/photo-1746289573063-2bee3bd96667?auto=format&fit=crop&fm=jpg&q=82&w=1800";
   const PHOTO_2 = "https://images.unsplash.com/photo-1712926097966-b86f0d8c131d?auto=format&fit=crop&fm=jpg&q=82&w=1800";
   const PHOTO_3 = "https://images.unsplash.com/photo-1772442363880-17ad476bdfee?auto=format&fit=crop&fm=jpg&q=82&w=1800";
@@ -183,6 +185,7 @@
   function openDrawer(){document.getElementById("drawer").classList.add("open");document.getElementById("drawerBackdrop").classList.add("open")}
   function closeDrawer(){document.getElementById("drawer").classList.remove("open");document.getElementById("drawerBackdrop").classList.remove("open")}
   async function startCheckout(qty){
+    if (GH) return alert("Checkout is disabled in the GitHub Pages preview.");
     try{
       const utm={};["utm_source","utm_medium","utm_campaign","utm_content","utm_term"].forEach(k=>{const v=new URLSearchParams(location.search).get(k);if(v)utm[k]=v});
       const res=await fetch("/api/create-checkout-session",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({quantity:qty,utm})});
@@ -190,14 +193,24 @@
     }catch(e){alert(e.message)}
   }
 
+  function adaptLinksForGitHub(){
+    if(!GH) return;
+    document.querySelectorAll('a[href^="/"]').forEach(a=>{
+      const path=a.getAttribute("href");
+      a.setAttribute("href", GH_BASE + "/?path=" + encodeURIComponent(path));
+    });
+  }
+
   function mount(){
-    const path=location.pathname.replace(/\/$/,"")||"/";
+    const ghPath = GH ? new URLSearchParams(location.search).get("path") : null;
+    const path = ghPath || (location.pathname.replace(/\/$/,"")||"/");
     const routes={
       "/":home,"/products/solvane-one":product,"/about":about,"/contact":contact,"/shipping":shipping,
       "/returns":returns,"/privacy":privacy,"/terms":terms,"/track":track,"/success":success,"/cancel":cancel
     };
     const render=routes[path]||notFound;
     app.innerHTML=header()+render()+footer()+drawer();
+    adaptLinksForGitHub();
     document.getElementById("cartBtn")?.addEventListener("click",openDrawer);
     document.getElementById("drawerClose")?.addEventListener("click",closeDrawer);
     document.getElementById("drawerBackdrop")?.addEventListener("click",closeDrawer);
