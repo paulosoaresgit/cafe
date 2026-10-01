@@ -9,12 +9,18 @@
   <meta property="og:title" content="Solvane | Coffee, made simple" />
   <meta property="og:description" content="Thoughtful coffee essentials for everyday routines." />
   <title>Solvane | Coffee, made simple</title>
+  <base id="appBase" href="/" />
+  <script>
+    if (location.hostname.endsWith("github.io")) {
+      document.getElementById("appBase").href = "/cafe/solvane/";
+    }
+  </script>
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div id="app"></div>
-  <script src="/config.js"></script>
-  <script src="/app.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
