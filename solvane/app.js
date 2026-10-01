@@ -1,5 +1,32 @@
 (() => {
-  const cfg = window.SOLVANE_CONFIG;
+  const cfg = window.SOLVANE_CONFIG || {};
+  cfg.product = cfg.product || {};
+  cfg.business = cfg.business || {};
+  cfg.policies = cfg.policies || {
+    processingTime: cfg.business.processingTime || "",
+    deliveryEstimate: cfg.business.deliveryEstimate || "",
+    shippingRegions: "",
+    returnWindowDays: cfg.business.returnWindowDays || "",
+    refundProcessingTime: "",
+    returnShippingResponsibility: "",
+    warranty: ""
+  };
+  cfg.shopify = cfg.shopify || {
+    enabled: false,
+    storeDomain: "",
+    storefrontAccessToken: "",
+    variantId: "",
+    apiVersion: "2026-07",
+    statementDescriptor: "SOLVANE"
+  };
+  cfg.product.privateLabelAuthorizationConfirmed = Boolean(cfg.product.privateLabelAuthorizationConfirmed);
+  cfg.product.productPhotosVerified = Boolean(cfg.product.productPhotosVerified);
+  cfg.product.specificationsVerified = cfg.product.specificationsVerified !== false;
+  cfg.product.fulfillmentInventoryConfirmed = Boolean(cfg.product.fulfillmentInventoryConfirmed);
+  cfg.business.tradingName = cfg.business.tradingName || "SOLVANE";
+  cfg.business.supportPhone = cfg.business.supportPhone || "";
+  cfg.business.companyNumber = cfg.business.companyNumber || "";
+  cfg.business.vatNumber = cfg.business.vatNumber || "";
   const app = document.getElementById("app");
   const GH = location.hostname.endsWith("github.io");
   const GH_BASE = "/cafe/solvane";
