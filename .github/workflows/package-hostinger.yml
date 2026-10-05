@@ -1,0 +1,36 @@
+name: Package Hostinger Site
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Hostinger upload ZIP
+        run: |
+          mkdir -p dist
+          zip -r dist/sharkninja-site-pronto.zip \
+            index.html \
+            assets \
+            checkout.html \
+            checkout.css \
+            checkout.js \
+            checkout-success.html \
+            solvane \
+            -x "*.DS_Store"
+
+      - name: Upload ready site
+        uses: actions/upload-artifact@v4
+        with:
+          name: sharkninja-site-pronto
+          path: dist/sharkninja-site-pronto.zip
+          if-no-files-found: error
