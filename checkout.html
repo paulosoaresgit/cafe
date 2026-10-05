@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Secure Checkout | Ninja Luxe Café Premier</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://js.stripe.com">
+  <link rel="stylesheet" href="/checkout.css">
+</head>
+<body>
+  <header class="checkout-header">
+    <a class="brand" href="/" aria-label="Back to store">NIN<span>J</span>A</a>
+    <div class="secure-badge" aria-label="Secure checkout">🔒 Secure checkout</div>
+  </header>
+
+  <main class="checkout-shell">
+    <section class="checkout-main">
+      <div class="steps" aria-label="Checkout progress">
+        <button class="step active" data-step-indicator="1"><span>1</span>Identification</button>
+        <div class="step-line"></div>
+        <button class="step" data-step-indicator="2"><span>2</span>Delivery</button>
+        <div class="step-line"></div>
+        <button class="step" data-step-indicator="3"><span>3</span>Payment</button>
+      </div>
+
+      <div id="checkout-message" class="message hidden" role="alert"></div>
+
+      <section class="panel checkout-step active" data-step="1">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">STEP 1 OF 3</p>
+            <h1>Contact information</h1>
+          </div>
+          <span class="panel-icon">✓</span>
+        </div>
+        <div class="field-grid">
+          <label class="field full">
+            <span>Full name</span>
+            <input id="fullName" autocomplete="name" placeholder="John Smith" required>
+          </label>
+          <label class="field full">
+            <span>Email</span>
+            <input id="email" type="email" autocomplete="email" placeholder="john@example.com" required>
+          </label>
+          <label class="field full">
+            <span>Mobile phone</span>
+            <input id="phone" type="tel" autocomplete="tel" placeholder="+44 7700 900000" required>
+          </label>
+        </div>
+        <button class="primary-btn" id="toDelivery">Continue to delivery</button>
+      </section>
+
+      <section class="panel checkout-step" data-step="2">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">STEP 2 OF 3</p>
+            <h2>Delivery address</h2>
+          </div>
+          <span class="panel-icon">🚚</span>
+        </div>
+        <div class="field-grid">
+          <label class="field full">
+            <span>Address</span>
+            <input id="line1" autocomplete="address-line1" placeholder="Street and house number" required>
+          </label>
+          <label class="field full">
+            <span>Apartment, suite, etc. <em>optional</em></span>
+            <input id="line2" autocomplete="address-line2" placeholder="Apartment or unit">
+          </label>
+          <label class="field">
+            <span>City</span>
+            <input id="city" autocomplete="address-level2" placeholder="London" required>
+          </label>
+          <label class="field">
+            <span>Postcode</span>
+            <input id="postcode" autocomplete="postal-code" placeholder="SW1A 1AA" required>
+          </label>
+          <label class="field full">
+            <span>Country</span>
+            <select id="country" autocomplete="country" required>
+              <option value="GB" selected>United Kingdom</option>
+            </select>
+          </label>
+        </div>
+        <div class="shipping-option selected">
+          <div class="radio-dot"></div>
+          <div>
+            <strong>Free tracked delivery</strong>
+            <span>Estimated delivery within 5 business days</span>
+          </div>
+          <b>FREE</b>
+        </div>
+        <div class="action-row">
+          <button class="text-btn" data-back="1">← Back</button>
+          <button class="primary-btn" id="toPayment">Continue to payment</button>
+        </div>
+      </section>
+
+      <section class="panel checkout-step" data-step="3">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">STEP 3 OF 3</p>
+            <h2>Payment</h2>
+          </div>
+          <span class="panel-icon">🔒</span>
+        </div>
+
+        <div id="embedded-payment">
+          <p class="stripe-note">Your payment details are encrypted and handled securely by Stripe.</p>
+          <div id="payment-element" class="payment-element"></div>
+          <button class="primary-btn pay-btn" id="payButton">
+            <span id="payButtonText">Pay £119.99</span>
+            <span id="spinner" class="spinner hidden" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <div id="stripe-fallback" class="fallback hidden">
+          <div class="fallback-card">
+            <div class="fallback-lock">🔒</div>
+            <h3>Continue securely with Stripe</h3>
+            <p>The payment is completed on Stripe's secure checkout. Your card details never pass through this website.</p>
+            <a id="fallbackLink" class="primary-btn link-btn" href="#">Continue to secure payment — £119.99</a>
+          </div>
+        </div>
+
+        <div class="action-row back-only">
+          <button class="text-btn" data-back="2">← Back</button>
+        </div>
+      </section>
+
+      <div class="checkout-trust">
+        <div><span>🔒</span><b>Secure payment</b><small>Powered by Stripe</small></div>
+        <div><span>🚚</span><b>Free delivery</b><small>Mainland UK</small></div>
+        <div><span>↩</span><b>Free returns</b><small>30 days</small></div>
+      </div>
+    </section>
+
+    <aside class="order-summary">
+      <div class="summary-sticky">
+        <h2>Order summary</h2>
+        <div class="product-row">
+          <div class="product-image">
+            <img src="https://smeguk.replit.app/luxury-coffee-mobile/source-assets/asset-33.png" alt="Ninja Luxe Café Premier Espresso Machine">
+            <span class="qty-badge">1</span>
+          </div>
+          <div class="product-copy">
+            <strong>Ninja Luxe Café Premier Espresso Machine</strong>
+            <span>Black</span>
+          </div>
+          <b>£119.99</b>
+        </div>
+        <div class="summary-line"><span>Subtotal</span><b>£119.99</b></div>
+        <div class="summary-line"><span>Delivery</span><b class="free">FREE</b></div>
+        <div class="summary-total"><span>Total</span><div><small>GBP</small><strong>£119.99</strong></div></div>
+        <div class="saving">You save £280.00 today</div>
+        <div class="summary-reassurance">
+          <p>✓ Secure Stripe payment</p>
+          <p>✓ Free tracked UK delivery</p>
+          <p>✓ 30-day free returns</p>
+          <p>✓ 2-year warranty</p>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="checkout-footer">
+    <a href="/">Return to store</a>
+    <span>·</span>
+    <span>Secure payment powered by Stripe</span>
+  </footer>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="/checkout.js" defer></script>
+</body>
+</html>
