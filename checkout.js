@@ -58,14 +58,32 @@
       }
     };
   }
+  function enableStaticStripeMode() {
+    config = {available:false, fallbackUrl:FALLBACK_URL};
+    $("fallbackLink").href = FALLBACK_URL;
+    document.querySelectorAll(".checkout-step").forEach(el => el.classList.remove("active"));
+    const paymentStep = document.querySelector('.checkout-step[data-step="3"]');
+    if (paymentStep) paymentStep.classList.add("active");
+    document.querySelectorAll("[data-step-indicator]").forEach(el => el.classList.add("active"));
+    $("embedded-payment").classList.add("hidden");
+    $("stripe-fallback").classList.remove("hidden");
+    const back = document.querySelector(".back-only");
+    if (back) back.classList.add("hidden");
+    const note = document.querySelector(".fallback-card p");
+    if (note) note.textContent = "Identification, delivery address and payment are completed securely on Stripe. Your card details never pass through this website.";
+  }
+
   async function loadConfig() {
     try {
       const res = await fetch("/api/stripe-config", {cache: "no-store"});
+      const contentType = res.headers.get("content-type") || "";
+      if (!res.ok || !contentType.includes("application/json")) throw new Error("Static hosting");
       config = await res.json();
+      $("fallbackLink").href = (config && config.fallbackUrl) || FALLBACK_URL;
+      if (!config.available || !config.publishableKey) enableStaticStripeMode();
     } catch (_) {
-      config = {available:false, fallbackUrl:FALLBACK_URL};
+      enableStaticStripeMode();
     }
-    $("fallbackLink").href = (config && config.fallbackUrl) || FALLBACK_URL;
   }
   async function setupPayment() {
     if (!config) await loadConfig();
