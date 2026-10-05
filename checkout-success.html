@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Order received | Ninja Luxe Café Premier</title>
+  <meta name="robots" content="noindex,nofollow">
+  <style>
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f6f6f6;color:#111}.wrap{max-width:620px;margin:0 auto;padding:70px 20px}.card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:42px;text-align:center;box-shadow:0 12px 35px rgba(0,0,0,.05)}.icon{width:62px;height:62px;border-radius:50%;background:#ecfdf3;color:#15803d;display:grid;place-items:center;margin:0 auto 18px;font-size:30px}.brand{font-weight:900;letter-spacing:4px;font-size:22px;margin-bottom:24px}.card h1{font-size:28px;margin:0 0 12px}.card p{color:#6b7280;line-height:1.6}.order{margin:28px 0;border-top:1px solid #eee;border-bottom:1px solid #eee;padding:20px 0;display:flex;justify-content:space-between;text-align:left;font-size:14px}.btn{display:flex;align-items:center;justify-content:center;height:52px;border-radius:9px;background:#111;color:#fff;text-decoration:none;font-weight:800;margin-top:18px}.status{font-size:13px;font-weight:700;color:#4b5563}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <div class="brand">NINJA</div>
+      <div class="icon">✓</div>
+      <h1 id="title">Payment submitted</h1>
+      <p id="copy">We are checking your payment status. You will also receive confirmation from Stripe by email.</p>
+      <div class="order"><span>Ninja Luxe Café Premier</span><strong>£119.99</strong></div>
+      <div id="status" class="status">Checking payment…</div>
+      <a class="btn" href="/">Return to store</a>
+    </section>
+  </main>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+  (async()=>{
+    const p=new URLSearchParams(location.search);
+    const sessionId=p.get("session_id");
+    const clientSecret=p.get("payment_intent_client_secret");
+    const title=document.getElementById("title"),copy=document.getElementById("copy"),status=document.getElementById("status");
+    function paid(){title.textContent="Thank you — payment confirmed";copy.textContent="Your order has been received. A payment confirmation will be sent to your email.";status.textContent="Paid · £119.99 GBP";status.style.color="#15803d"}
+    function pending(){title.textContent="Payment processing";copy.textContent="Your payment is still being processed. Stripe will email you when it is confirmed.";status.textContent="Processing";status.style.color="#9a6700"}
+    try{
+      if(sessionId){
+        const r=await fetch("/api/checkout-session-status?session_id="+encodeURIComponent(sessionId),{cache:"no-store"});
+        const d=await r.json();
+        if(d.paid)return paid();
+        if(d.status)return pending();
+      }
+      if(clientSecret){
+        const r=await fetch("/api/stripe-config",{cache:"no-store"}),cfg=await r.json();
+        if(cfg.publishableKey){
+          const stripe=Stripe(cfg.publishableKey);
+          const out=await stripe.retrievePaymentIntent(clientSecret);
+          if(out.paymentIntent&&out.paymentIntent.status==="succeeded")return paid();
+          if(out.paymentIntent)return pending();
+        }
+      }
+      status.textContent="Check your email for the final Stripe confirmation.";
+    }catch(e){status.textContent="Check your email for the final Stripe confirmation."}
+  })();
+  </script>
+</body>
+</html>
