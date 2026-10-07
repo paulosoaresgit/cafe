@@ -11,6 +11,7 @@
   function message(text) { $('checkout-message').textContent = text; $('checkout-message').hidden = !text; }
   function render() {
     const variant = catalog.variants[colour];
+    document.querySelector('.order-summary').setAttribute('aria-busy', 'false');
     $('product-image').src = variant.image;
     $('product-image').alt = catalog.name + ' in ' + variant.name;
     $('selected-colour').textContent = variant.name;

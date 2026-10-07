@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
   <link rel="stylesheet" href="/02/checkout.css?v=2">
   <script src="https://js.stripe.com/endive/stripe.js" defer></script>
-  <script src="/02/checkout.js?v=1" defer></script>
+  <script src="/02/checkout.js?v=2" defer></script>
 </head>
 <body>
   <header class="checkout-header">
@@ -40,7 +40,7 @@
       </section>
       <div class="trust-row"><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 8 4v6c0 5-8 10-8 10S4 17 4 12V6zM8 12l3 3 5-6"/></svg><strong>Secure payment</strong><span>Powered by Stripe</span></div><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v13H4zM4 7l3-4h10l3 4M12 3v8"/></svg><strong>Complete collection</strong><span>Six matching appliances</span></div><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-7M3 3v6h6M12 7v5l3 2"/></svg><strong>Tracked delivery</strong><span>To your UK address</span></div></div>
     </section>
-    <aside class="order-summary" aria-labelledby="summary-title">
+    <aside class="order-summary" aria-labelledby="summary-title" aria-busy="true">
       <div class="summary-inner">
         <div class="summary-heading"><h2 id="summary-title">Your collection</h2><span class="summary-badge">6 appliances · 1 set</span></div>
         <div class="product-preview"><img id="product-image" src="/02/media/colour-light-blue.jpg" alt="Smeg Heritage Collection in Light blue"><span class="quantity-badge" id="quantity-badge">1</span></div>
@@ -49,10 +49,10 @@
         <div class="colour-heading"><span>Colour</span><strong id="selected-colour">Light blue</strong></div>
         <div id="colour-options" class="colour-options" role="group" aria-label="Choose a colour"></div>
         <div class="quantity-row"><span>Quantity</span><div class="quantity-picker"><button id="decrease" type="button" aria-label="Decrease quantity" disabled>−</button><output id="quantity" aria-label="Quantity" aria-live="polite">1</output><button id="increase" type="button" aria-label="Increase quantity">+</button></div></div>
-        <div class="summary-line"><span>Subtotal</span><div><s id="compare-price">£399.00</s><strong id="subtotal">£119.00</strong></div></div>
+        <div class="summary-line"><span>Subtotal</span><div><s id="compare-price">—</s><strong id="subtotal">—</strong></div></div>
         <div class="summary-line"><span>Delivery</span><strong class="free">FREE</strong></div>
-        <div class="summary-total"><strong>Total</strong><div><span>GBP</span><strong id="total" aria-live="polite">£119.00</strong></div></div>
-        <div class="savings"><span>✓</span> You save <strong id="savings">£280.00</strong> on your collection</div>
+        <div class="summary-total"><strong>Total</strong><div><span>GBP</span><strong id="total" aria-live="polite">—</strong></div></div>
+        <div class="savings"><span>✓</span> You save <strong id="savings">—</strong> on your collection</div>
       </div>
     </aside>
   </main>

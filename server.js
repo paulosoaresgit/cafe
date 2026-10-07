@@ -115,6 +115,11 @@ http.createServer(async (req,res)=>{
   const url = new URL(req.url, "http://localhost");
   const pathname = decodeURIComponent(url.pathname);
 
+  if (pathname.split('/').some(part => part.startsWith('.') && part !== '.well-known')) {
+    res.writeHead(404, {'Content-Type': 'text/plain; charset=utf-8'});
+    return res.end('Not found');
+  }
+
   if (await smegCheckout(req, res, url)) return;
 
   if (req.method === "GET" && pathname === "/api/stripe-config") {
