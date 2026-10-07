@@ -4,282 +4,281 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Smeg Retro Kitchen Collection</title>
-<style>
-:root{
-  --ink:#2a2a2a;
-  --muted:#626262;
-  --blue:#67a0ce;
-  --red:#ed1732;
-  --aqua:#e8f7f7;
-  --yellow:#fff8df;
-  --yellow-border:#f2b400;
-  --green:#00b67a;
-  --line:#e5e5e5;
-}
+<style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap";:root{--background: 0 0% 100%;--foreground: 0 0% 20%;--primary: 0 0% 0%;--accent: 349 83% 42%}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:#fff;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
-button{font:inherit}
-img{display:block;max-width:100%}
-.page{width:100%;max-width:520px;margin:0 auto;background:#fff;overflow:hidden}
-.top{background:#000;color:#fff;text-align:center}
-.offer{font-size:16px;font-weight:900;padding:18px 8px 10px}
-.brand{height:96px;display:flex;align-items:center;justify-content:center}
-.brand img{width:205px;max-width:55%}
-.countdown{border-top:1px solid #151515;padding:24px 0 25px}
-.countdown h2{font-size:22px;margin:0 0 18px;letter-spacing:.1px}
-.clock{display:flex;justify-content:center;gap:54px}
-.tblock strong{font-size:31px;line-height:1;display:block}
-.tblock span{display:block;font-size:13px;margin-top:10px;font-weight:700}
-.hero{position:relative}
-.hero img{width:100%;aspect-ratio:1/1;object-fit:cover}
-.dots{position:absolute;left:47px;right:47px;bottom:8px;height:26px;border-radius:18px;background:#e9e9e9;display:flex;align-items:center;justify-content:center;gap:10px}
-.dot{width:10px;height:10px;border-radius:50%;background:#a8a8a8}
-.dot.active{width:25px;border-radius:8px;background:#c91937}
-.section-pad{padding:34px 38px 0}
-h1{font-size:33px;line-height:1.06;font-weight:500;margin:0 0 28px;letter-spacing:-.4px}
-.trust-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:16px;margin-bottom:34px}
-.trust-stars{display:flex;gap:2px}
-.trust-stars span{width:19px;height:19px;background:var(--green);color:#fff;display:grid;place-items:center;font-size:13px}
-.trust-row b{text-decoration:underline}
-.trustpilot{font-weight:700}
-.trustpilot:before{content:"★";color:var(--green);font-size:22px;margin-right:2px}
-.price-row{display:flex;align-items:center;gap:18px;margin-bottom:28px}
-.price{font-size:42px;font-weight:400;letter-spacing:-1px}
-.compare{font-size:18px;text-decoration:line-through;color:#5b5b5b}
-.info-box{border:2px solid var(--yellow-border);background:var(--yellow);border-radius:16px;padding:17px 20px 17px 61px;position:relative;margin-bottom:25px}
-.info-box .i{position:absolute;left:20px;top:50%;transform:translateY(-50%);width:25px;height:25px;border-radius:50%;background:#1688f8;color:#fff;display:grid;place-items:center;font-weight:900}
-.info-box h3{font-size:19px;margin:0 0 3px;text-align:center}
-.info-box p{font-size:16px;line-height:1.45;margin:0;color:#5b5b5b}
-.live{display:inline-block;background:var(--aqua);color:#2f9196;border-radius:10px;padding:10px 19px;font-size:18px;margin:0 0 61px}
-.selector{margin:0 15px;border:2px solid var(--red);border-radius:24px;padding:20px 17px 21px}
-.selector h3{text-align:center;font-size:22px;margin:0 0 20px}
-.colors{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.color-card{height:122px;border:1px solid #d5d5d5;background:#fff;border-radius:12px;padding:6px;cursor:pointer}
-.color-card.active{border:3px solid var(--red);padding:4px}
-.color-card img{width:100%;height:100%;object-fit:contain}
-.product-card{margin:29px 15px 24px;border:1px solid #dedede;background:#fafafa;border-radius:15px;padding:19px 20px;display:grid;grid-template-columns:74px 1fr auto;gap:14px;align-items:center}
-.product-thumb{width:74px;height:74px;border-radius:9px;border:1px solid #e4e4e4;background:#fff;padding:4px}
-.product-thumb img{width:100%;height:100%;object-fit:contain}
-.product-title{font-size:20px;font-weight:700;line-height:1.15}
-.product-sub{font-size:18px;color:#656565;margin-top:4px}
-.product-price{font-size:24px;font-weight:800}
-.stock{margin:0 15px 20px}
-.stock-bar{height:7px;background:#ececec;border-radius:5px;overflow:hidden}
-.stock-bar i{display:block;width:15%;height:100%;background:#e25353}
-.stock p{font-size:16px;color:#666;margin:10px 0 0}
-.buy-row{display:grid;grid-template-columns:174px 1fr;gap:18px;align-items:center;margin:0 15px 26px}
-.qty{height:73px;border:1px solid #dedede;border-radius:38px;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;text-align:center;font-size:24px;background:#fff}
-.qty button{background:transparent;border:0;font-size:26px;color:#7b7b7b}
-.qty strong{font-size:24px}
-.add{height:73px;border:0;border-radius:38px;background:#000;color:#fff;font-size:22px;font-weight:900}
-.delivery{margin:0 21px 35px;padding:28px 25px;background:#eef4ff;border:1px solid #b8d4ff;border-radius:13px}
-.delivery h3{font-size:18px;margin:0 0 16px}
-.delivery strong{font-size:20px;color:#4938ff}
-.delivery p{font-size:17px;line-height:1.45;color:#6a6a6a;margin:12px 0 0}
-.payments{margin:0 26px 79px;border-radius:4px;overflow:hidden}
-.payments img{width:100%}
-.content{padding:0 29px 0}
-.content h2{font-size:39px;line-height:1.05;text-transform:uppercase;text-align:center;font-weight:900;letter-spacing:-1.6px;margin:0 0 28px}
-.content p{font-size:20px;line-height:1.38;color:#4d4d4d;margin:0 0 28px}
-.content .media{width:100%;margin:0 0 30px;background:#ddd;overflow:hidden}
-.content .media img{width:100%;height:auto}
-.spacer{height:19px}
-.cta-gap{padding-bottom:34px}
-.tech h2{margin-top:31px}
-.spec-text{font-size:19px;line-height:1.45;color:#494949;white-space:pre-line}
-.review-wrap{padding:62px 30px 120px}
-.rating-card{width:350px;max-width:100%;margin:0 auto 28px;border:1px solid #e8e8e8;border-radius:16px;background:#fff;padding:23px 20px;text-align:center}
-.rating-card .score{font-size:44px;font-weight:700}
-.rating-stars{display:flex;justify-content:center;gap:4px;margin:7px 0 8px}
-.rating-stars span{width:29px;height:29px;background:var(--green);color:#fff;display:grid;place-items:center;font-size:18px}
-.rating-card small{font-size:13px;color:#666}
-.rating-card .tp{color:var(--green);font-size:30px;font-weight:700;margin:17px 0 5px}
-.rating-card .tp:before{content:"★ ";font-size:31px}
-.review-card{width:350px;max-width:100%;margin:0 auto 20px;border:1px solid #e8e8e8;border-radius:16px;background:#fff;padding:19px}
-.reviewer{display:flex;align-items:center;gap:12px}
-.reviewer img{width:52px;height:52px;border-radius:50%;object-fit:cover}
-.reviewer b{font-size:17px}.reviewer span{font-size:13px;color:#767676}
-.review-card .stars{display:flex;gap:3px;margin:16px 0 10px}
-.review-card .stars i{font-style:normal;width:25px;height:25px;background:var(--green);color:#fff;display:grid;place-items:center}
-.review-card h3{font-size:19px;margin:0 0 10px}
-.review-card p{font-size:15px;line-height:1.55;color:#444}
-.review-photo{width:140px;border-radius:7px;margin-top:12px}
-.review-card small{display:block;color:#8a8a8a;margin-top:12px}
-.fixed-cta{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;width:min(412px,calc(100vw - 48px));height:67px;background:var(--blue);border-radius:36px;border:0;color:#fff;font-size:20px;font-weight:900;box-shadow:0 8px 20px rgba(0,0,0,.18);z-index:99;display:none}
-.fixed-cta.show{display:block}
-.disclosure{font-size:11px;color:#777;text-align:center;padding:18px 28px 100px;line-height:1.4}
-@media(min-width:521px){
- body{background:#f2f2f2}.page{box-shadow:0 0 0 1px #ddd}
+body{margin:0;background:#fff;color:#333;font-family:Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button,input{font:inherit}
+button{cursor:pointer}
+img,video{max-width:100%}
+.page{max-width:390px;margin:0 auto;background:#fff;overflow:hidden;min-height:100dvh}
+.topbar{background:#000;color:#fff;text-align:center;padding:13px 10px;font-size:14px;font-weight:900}
+.header{height:76px;display:flex;align-items:center;justify-content:center;padding:0 22px;background:#000;border-bottom:1px solid rgba(255,255,255,.1);position:relative;z-index:5}
+.header img{height:84px;width:auto;display:block}
+.timer{background:#000;color:#fff;text-align:center;padding:22px 10px}
+.timer h3{font-size:17px;font-weight:800;letter-spacing:.5px;margin:0 0 18px}
+.timer-row{display:flex;justify-content:center;align-items:center;gap:16px}
+.time-box{min-width:46px}
+.time-box strong{display:block;font-size:24px;font-weight:800;line-height:1}
+.time-box span{display:block;margin-top:8px;font-size:11px;font-weight:700;color:#ffffffd9;text-transform:uppercase}
+.timer-dot{font-size:34px;font-weight:700;color:#000;margin-top:-8px}
+.hero-swiper{width:100%;position:relative;overflow:hidden}
+.swiper-strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;touch-action:pan-x}
+.swiper-strip::-webkit-scrollbar{display:none}
+.swiper-slide{flex:0 0 100%;width:100%;scroll-snap-align:center}
+.swiper-slide img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;pointer-events:none}
+.swiper-pagination{position:absolute;bottom:8px;left:50%;transform:translate(-50%);display:flex;justify-content:center;gap:8px;align-items:center;width:min(320px,88%);height:20px;padding:6px;border-radius:20px;background:#e6e6e6}
+.swiper-pagination button{border:0;padding:0;width:8px;height:8px;border-radius:50%;background:#00000040;flex:none}
+.swiper-pagination button.active{width:20px;border-radius:4px;background:#c8102e}
+.product{padding:22px 24px 10px}
+.product h1{font-size:25px;line-height:1.08;font-weight:500;margin:0 0 22px}
+.rating{display:flex;align-items:center;gap:6px;font-size:14px;margin-bottom:25px;white-space:nowrap}
+.rating-stars-image{display:block;height:16px;width:auto}
+.rating-stars{display:inline-flex;gap:1px}
+.rating-stars span{background:#00b67a;color:#fff;display:grid;place-items:center;width:15px;height:15px;font-size:11px;line-height:1}
+.rating .review-count{text-decoration:underline;font-weight:600}
+.trustpilot-mini{font-weight:700;color:#161616;font-size:13px}
+.trustpilot-mini b{color:#00b67a;font-size:17px}
+.price{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.price strong{font-size:32px;font-weight:400}
+.price s{color:#555;font-size:14px}
+.why-cheap-box{background:#fff8e1;border:2px solid #ffc107;border-radius:12px;padding:12px 16px;margin:20px 0;display:flex;align-items:center;gap:12px}
+.why-cheap-icon{background:#007aff;color:#fff;border-radius:50%;width:20px;height:20px;display:grid;place-items:center;font-size:14px;font-weight:700;flex:none}
+.why-cheap-content h4{font-size:15px;color:#111;margin:0 0 4px}
+.why-cheap-content p{font-size:13px;color:#666;line-height:1.4;margin:0}
+.live{display:inline-block;background:#e6f7f7;color:#2e8b8b;padding:8px 16px;border-radius:8px;font-size:14px;margin-bottom:25px}
+.upsell-title{text-align:center;font-size:18px;font-weight:700;color:#111;background:linear-gradient(180deg,#fff5f6,#fff);border:2px solid #c8102e;border-bottom:0;border-radius:18px 18px 0 0;padding:16px 12px 8px;margin:25px 0 0}
+.upsells{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;border:2px solid #c8102e;border-top:0;border-radius:0 0 18px 18px;padding:10px 14px 16px;box-shadow:0 10px 24px #c8102e1f}
+.swatch{display:block;border:0;background:none;padding:0;overflow:hidden;border-radius:10px}
+.swatch img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border:1px solid #ccc;border-radius:10px;transition:transform .2s ease}
+.swatch.active img{border:3px solid #d0021b}
+.swatch:hover img{transform:scale(1.04)}
+.selected-summary{background:#f8f8f8;border:1px solid #e0e0e0;border-radius:12px;padding:15px;margin:20px 0;display:flex;align-items:center;gap:15px}
+.selected-summary img{width:60px;height:60px;object-fit:cover;border-radius:8px;border:1px solid #eee}
+.selected-summary div{flex:1;min-width:0}
+.selected-summary h4{margin:0;font-size:16px}
+.selected-summary p{margin:4px 0 0;font-size:14px;color:#666}
+.selected-summary strong{font-size:18px;white-space:nowrap}
+.stock-bar-container{margin:10px 0}
+.stock-bar{height:6px;background:#eee;border-radius:3px;overflow:hidden;margin-bottom:8px}
+.stock-bar-fill{height:100%;background:#d9534f;width:15%}
+.stock-left-text{font-size:13px;color:#666}
+.buy-area{display:flex;align-items:center;margin:20px 0;gap:15px}
+.qty-picker{display:flex;align-items:center;justify-content:space-between;border:1px solid #ddd;border-radius:50px;padding:4px;width:140px;height:58px;flex:none}
+.qty-picker button{border:0;background:none;color:#777;width:44px;height:44px;font-size:24px}
+.qty-picker output{font-size:20px;font-weight:700;color:#111}
+.cta-checkout{flex:1;background:#000;color:#fff;border:0;border-radius:50px;min-height:58px;display:flex;justify-content:center;align-items:center;font-size:18px;font-weight:800;text-decoration:none;text-align:center}
+.cta-checkout:hover{background:#222}
+.delivery{background:#eef4ff;border-radius:12px;padding:20px;margin:20px 0;border:1px solid #d0e0fb}
+.delivery h4{font-size:14px;margin:0 0 12px;font-weight:600}
+.delivery strong{color:#4737ff;font-size:16px}
+.delivery p{font-size:13px;color:#666;line-height:1.4;margin:8px 0 0}
+.payment-methods{width:100%;display:block;margin:20px auto}
+.section{padding:0 24px 25px}
+.section h2{text-align:center;font-size:30px;line-height:1.1;margin:22px 0;font-weight:900}
+.section p{font-size:15px;line-height:1.48;margin-bottom:16px;white-space:pre-line}
+.section video{display:block;width:100%;height:auto;margin:12px 0 15px}
+.reviews-section{background:#fff;padding:40px 20px}
+.trustpilot-header{display:flex;flex-direction:column;text-align:center;gap:18px;align-items:center;background:#fafafa;border:1px solid #ececec;border-radius:16px;padding:18px;margin-bottom:28px}
+.tp-left h2{font-size:42px;line-height:1;margin:0}
+.tp-stars{display:flex;justify-content:center;gap:4px;margin:10px 0}
+.tp-stars span,.review-stars span{background:#00b67a;color:#fff;display:grid;place-items:center;border-radius:3px}
+.tp-stars span{width:28px;height:28px;font-size:16px}
+.tp-left p{color:#666;font-size:13px;margin:0}
+.tp-right .logo{font-size:28px;color:#00b67a;font-weight:700}
+.tp-right small{display:block;color:#777;margin-top:6px}
+.review-card{background:#fff;border:1px solid #ececec;border-radius:16px;padding:20px;margin-bottom:18px;box-shadow:0 5px 18px #0000000d}
+.review-header{display:flex;align-items:center;gap:14px}
+.review-header img{width:54px;height:54px;border-radius:50%;object-fit:cover}
+.review-header h3{font-size:17px;margin:0 0 4px}
+.review-header span{color:#777;font-size:13px}
+.review-stars{display:flex;gap:3px;margin:18px 0 12px}
+.review-stars span{width:24px;height:24px;font-size:13px}
+.review-title{font-size:19px;font-weight:700;margin-bottom:10px}
+.review-text{color:#555;line-height:1.6;font-size:15px}
+.review-photo{width:140px;height:140px;object-fit:cover;border-radius:12px;border:1px solid #e5e5e5;display:block;margin:12px 0}
+.review-date{color:#888;font-size:13px}
+.footer{background:#000;color:#fff;padding:60px 22px 40px;border-top:1px solid #333}
+.footer-logo{width:100%;max-width:400px;display:block;margin:0 auto 40px}
+.footer h4{color:#d4a373;font-size:14px;letter-spacing:1px;margin:0 0 15px}
+.footer-policies{margin-top:30px;display:flex;flex-direction:column;gap:12px}
+.footer-policies p{margin:0;font-size:14px}
+.footer-newsletter,.footer-service{margin-top:40px}
+.newsletter{display:flex;border-bottom:1px solid #333;padding-bottom:8px}
+.newsletter input{border:0;background:transparent;color:#fff;flex:1;min-width:0;outline:none;font-size:15px}
+.newsletter button{border:0;background:none;color:#fff;font-size:22px}
+.newsletter-message{color:#fff;font-size:12px;margin:10px 0 0}
+.footer-service a{color:#fff;text-decoration:none;font-size:14px}
+.fixed-buy{position:fixed;bottom:18px;left:50%;transform:translate(-50%) translateY(90px);width:330px;max-width:88%;background:#5d91bf;color:#fff;text-align:center;padding:17px;border-radius:30px;text-decoration:none;font-size:17px;font-weight:900;box-shadow:0 7px 18px #00000040;z-index:99;opacity:0;transition:transform .35s ease,opacity .35s ease;pointer-events:none}
+.fixed-buy.show{opacity:1;transform:translate(-50%) translateY(0);pointer-events:auto}
+@media(max-width:768px){.page{width:100%;max-width:100vw}
+.product,.section,.reviews-section{padding-left:14px;padding-right:14px}
+.header img{height:64px}
+.fixed-buy{width:calc(100vw - 24px);max-width:calc(100vw - 24px);left:12px;right:12px;transform:translateY(90px)}
+.fixed-buy.show{transform:translateY(0)}
+}
+@media(max-width:420px){.product h1{font-size:24px}
+}
+
+
+/* Keep the existing /02 button hooks and section containers. */
+.fixed-buy { border: 0; cursor: pointer; }
+.content { padding-bottom: 0; }
+.content .media { margin: 0; }
+.content.tech { padding-bottom: 25px; }
+.newsletter button { cursor: pointer; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .fixed-buy, .swatch img { transition: none; }
 }
 </style>
-</head>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""></head>
 <body>
 <div class="page">
   <div class="top">
-    <div class="offer">FREE UK DELIVERY • LIMITED TIME OFFER</div>
-    <div class="brand"><img src="https://smeguk.store/images/smeg-logo.png" alt="Smeg"></div>
-    <div class="countdown">
-      <h2>SALE ENDS IN:</h2>
-      <div class="clock">
-        <div class="tblock"><strong id="h">17</strong><span>HOURS</span></div>
-        <div class="tblock"><strong id="m">59</strong><span>MIN</span></div>
-        <div class="tblock"><strong id="s">28</strong><span>SEC</span></div>
-      </div>
-    </div>
+    <div class="offer topbar">FREE UK DELIVERY • LIMITED TIME OFFER</div>
+    <div class="brand header"><img alt="SMEG" src="/02/media/logo.png"></div>
+    <div class="countdown timer" aria-label="Sale ends in"><h3>SALE ENDS IN:</h3><div class="timer-row" aria-live="off"><div class="time-box"><strong id="h">18</strong><span>Hours</span></div><div class="timer-dot">:</div><div class="time-box"><strong id="m">11</strong><span>Min</span></div><div class="timer-dot">:</div><div class="time-box"><strong id="s">26</strong><span>Sec</span></div></div></div>
   </div>
 
-  <div class="hero">
-    <img id="heroImage" src="https://smeguk.store/images/smeg-summer-sale.webp" alt="Complete kitchen set">
-    <div class="dots"><i class="dot active"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></div>
-  </div>
+  <div class="hero hero-swiper" aria-label="Product image gallery"><div class="swiper-strip"><div class="swiper-slide"><img alt="Smeg complete kitchen set sale" width="1254" height="1254" loading="eager" src="/02/media/hero-sale.webp" id="heroImage"></div><div class="swiper-slide"><img alt="Smeg retro kitchen appliance" width="1254" height="1254" loading="lazy" src="/02/media/gallery-02.jpg"></div><div class="swiper-slide"><img alt="Smeg retro kitchen appliance collection" width="1254" height="1254" loading="lazy" src="/02/media/gallery-03.jpg"></div><div class="swiper-slide"><img alt="Smeg retro kitchen appliance" width="1254" height="1254" loading="lazy" src="/02/media/gallery-04.jpg"></div><div class="swiper-slide"><img alt="Smeg retro kitchen appliance" width="1254" height="1254" loading="lazy" src="/02/media/gallery-05.jpg"></div><div class="swiper-slide"><img alt="Smeg pastel blue kettle" width="1254" height="1254" loading="lazy" src="/02/media/gallery-06.jpeg"></div><div class="swiper-slide"><img alt="Smeg pastel blue toaster" width="1254" height="1254" loading="lazy" src="/02/media/gallery-07.jpeg"></div><div class="swiper-slide"><img alt="Smeg pastel blue blender" width="1254" height="1254" loading="lazy" src="/02/media/gallery-08.jpeg"></div></div><div class="swiper-pagination" aria-label="Choose gallery image"><button type="button" class="active" aria-label="Show image 1" aria-current="true"></button><button type="button" class="" aria-label="Show image 2"></button><button type="button" class="" aria-label="Show image 3"></button><button type="button" class="" aria-label="Show image 4"></button><button type="button" class="" aria-label="Show image 5"></button><button type="button" class="" aria-label="Show image 6"></button><button type="button" class="" aria-label="Show image 7"></button><button type="button" class="" aria-label="Show image 8"></button></div></div>
 
-  <div class="section-pad">
-    <h1>Smeg Retro Kitchen Collection — Iconic 50s Style, Now in the UK</h1>
-    <div class="trust-row">
-      <div class="trust-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-      <b>Customer reviews</b><span>on</span><span class="trustpilot">Trustpilot</span>
-    </div>
-    <div class="price-row"><span class="price">£119.00</span><span class="compare">£399.00</span></div>
+  <div class="section-pad product"><h1>Smeg Retro Kitchen Collection — Iconic 50s Style, Now in the UK</h1><div class="rating trust-row"><img class="rating-stars-image" alt="4.8 stars" src="/02/media/stars.svg"><span class="review-count">21,417+ reviews</span><span>on</span><span class="trustpilot-mini"><b>★</b>Trustpilot</span></div><div class="price price-row"><strong>£119.00</strong><s>£399.00</s></div><div class="why-cheap-box info-box"><span class="why-cheap-icon">i</span><div class="why-cheap-content"><h4>Why so cheap?</h4><p>This is limited end-of-season stock from the retro collection, sold exclusively online with no showroom costs. Price valid while stocks last.</p></div></div><div class="live">113 people are checking out right now</div><div class="upsell-title">Selected Color: <span id="selectedColor">Light blue</span></div><div class="upsells colors" role="group" aria-label="Choose a colour"><button type="button" class="swatch active color-card" aria-label="Light blue" aria-pressed="true" data-name="Light blue" data-src="/02/media/colour-light-blue.jpg"><img alt="Light blue" loading="lazy" src="/02/media/colour-light-blue.jpg"></button><button type="button" class="swatch  color-card" aria-label="White" aria-pressed="false" data-name="White" data-src="/02/media/colour-white.jpg"><img alt="White" loading="lazy" src="/02/media/colour-white.jpg"></button><button type="button" class="swatch  color-card" aria-label="Black" aria-pressed="false" data-name="Black" data-src="/02/media/colour-black.jpg"><img alt="Black" loading="lazy" src="/02/media/colour-black.jpg"></button><button type="button" class="swatch  color-card" aria-label="Light Green" aria-pressed="false" data-name="Light Green" data-src="/02/media/colour-light-green.jpg"><img alt="Light Green" loading="lazy" src="/02/media/colour-light-green.jpg"></button><button type="button" class="swatch  color-card" aria-label="Red" aria-pressed="false" data-name="Red" data-src="/02/media/colour-red.jpeg"><img alt="Red" loading="lazy" src="/02/media/colour-red.jpeg"></button><button type="button" class="swatch  color-card" aria-label="Pink" aria-pressed="false" data-name="Pink" data-src="/02/media/colour-pink.jpeg"><img alt="Pink" loading="lazy" src="/02/media/colour-pink.jpeg"></button></div><div class="selected-summary product-card"><img alt="Light blue" src="/02/media/colour-light-blue.jpg" id="productThumb"><div><h4 class="product-title">Smeg Heritage Collection</h4><p class="product-sub">Colour: <span id="productColor">Light blue</span></p></div><strong class="product-price">£119.00</strong></div><div class="stock-bar-container stock"><div class="stock-bar"><div class="stock-bar-fill"></div></div><div class="stock-left-text">Only <strong>12</strong> items left at this clearance price</div></div><div class="buy-area buy-row"><div class="qty-picker qty"><button type="button" aria-label="Decrease quantity" id="minus">−</button><output aria-label="Quantity" id="qty">1</output><button type="button" aria-label="Increase quantity" id="plus">+</button></div><button class="cta-checkout add" type="button" id="add">Add to basket</button></div><div class="delivery"><h4>Estimated Delivery Time</h4><strong>2-3 business days</strong><p>Processing and shipping times may vary based on your location</p></div><img class="payment-methods payments" alt="Secure &amp; Flexible Checkout - Visa, Mastercard, American Express, Apple Pay, Google Pay, Shop Pay, Klarna" loading="lazy" src="/02/media/payments.webp"></div>
 
-    <div class="info-box">
-      <div class="i">i</div>
-      <h3>Why so cheap?</h3>
-      <p>This is limited end-of-season stock from the retro collection, sold exclusively online with no showroom costs. Price valid while stocks last.</p>
-    </div>
+  <section class="content section"><h2>THE MATCHING SMEG KITCHEN YOU’VE BEEN DREAMING OF</h2><p>Why upgrade one appliance at a time when you can transform the entire kitchen at once?
 
-    <div class="live">People are checking out right now</div>
-  </div>
+The Smeg CJ01WHBR-6 Collection brings together six beautifully coordinated appliances in Smeg’s unmistakable 50’s-inspired design. From the morning coffee to weekend baking, everything you need is matched, organised and ready to use.</p><video autoplay="" loop="" playsinline="" preload="metadata" muted="" width="400" height="500" aria-label="Smeg kitchen collection demonstration"><source src="/02/media/collection-01.webm" type="video/webm"></source></video></section>
 
-  <div class="selector">
-    <h3>Selected Color: <span id="selectedColor">Light blue</span></h3>
-    <div class="colors">
-      <button class="color-card active" data-name="Light blue" data-src="https://smeguk.store/images/2.jpg"><img src="https://smeguk.store/images/2.jpg" alt="Light blue"></button>
-      <button class="color-card" data-name="White" data-src="https://smeguk.store/images/1.jpg"><img src="https://smeguk.store/images/1.jpg" alt="White"></button>
-      <button class="color-card" data-name="Black" data-src="https://smeguk.store/images/4.jpg"><img src="https://smeguk.store/images/4.jpg" alt="Black"></button>
-      <button class="color-card" data-name="Light green" data-src="https://smeguk.store/images/1_1.jpg"><img src="https://smeguk.store/images/1_1.jpg" alt="Light green"></button>
-      <button class="color-card" data-name="Red" data-src="https://smeguk.store/images/WhatsApp%20Image%202026-07-19%20at%2022.47.21.jpeg"><img src="https://smeguk.store/images/WhatsApp%20Image%202026-07-19%20at%2022.47.21.jpeg" alt="Red"></button>
-      <button class="color-card" data-name="Pink" data-src="https://smeguk.store/images/WhatsApp%20Image%202026-07-19%20at%2022.47.44.jpeg"><img src="https://smeguk.store/images/WhatsApp%20Image%202026-07-19%20at%2022.47.44.jpeg" alt="Pink"></button>
-    </div>
-  </div>
+  <section class="content section"><h2>SIX APPLIANCES    ONE COMPLETE KITCHEN UPGRADE.</h2><p>This carefully selected collection includes:
 
-  <div class="product-card">
-    <div class="product-thumb"><img id="productThumb" src="https://smeguk.store/images/2.jpg" alt=""></div>
-    <div><div class="product-title">Smeg Heritage<br>Collection</div><div class="product-sub">Colour: <span id="productColor">Light blue</span></div></div>
-    <div class="product-price">£119.00</div>
-  </div>
+Stand mixer for cakes, bread and family recipes
+Blender for smoothies, sauces and everyday preparation
+Electric kettle for quick morning brews
+Filter coffee machine for rich, freshly brewed coffee
+Four-slice toaster for effortless family breakfasts
+Citrus juicer for fresh juice in seconds
 
-  <div class="stock">
-    <div class="stock-bar"><i></i></div>
-    <p>Low stock at this clearance price</p>
-  </div>
+Instead of choosing between individual appliances, you receive the complete matching six-piece collection.</p><video autoplay="" loop="" playsinline="" preload="metadata" muted="" width="400" height="500" aria-label="Smeg kitchen collection demonstration"><source src="/02/media/collection-02.webm" type="video/webm"></source></video></section>
 
-  <div class="buy-row">
-    <div class="qty"><button id="minus">−</button><strong id="qty">1</strong><button id="plus">+</button></div>
-    <button class="add" id="add">Add to basket</button>
-  </div>
+  <section class="content section"><h2>DESIGNED TO BE SEEN BUILT TO BE USED.</h2><p>The appeal goes far beyond the iconic retro styling.
 
-  <div class="delivery">
-    <h3>Estimated Delivery Time</h3>
-    <strong>2-3 business days</strong>
-    <p>Processing and shipping times may vary based on your location</p>
-  </div>
+Premium finishes, solid construction and intuitive controls make every appliance feel as good to use as it looks. Display them together on the worktop and instantly give your kitchen a cleaner, more coordinated and sophisticated appearance.
 
-  <div class="payments"><img src="https://smeguk.store/images/payment-methods-v3.webp" alt="Secure and flexible checkout"></div>
+It’s the kind of upgrade that changes the feel of the entire room—without replacing the kitchen itself.</p><video autoplay="" loop="" playsinline="" preload="metadata" muted="" width="400" height="500" aria-label="Smeg kitchen collection demonstration"><source src="/02/media/collection-03.webm" type="video/webm"></source></video></section>
 
-  <section class="content">
-    <h2>THE MATCHING SMEG KITCHEN YOU’VE BEEN DREAMING OF</h2>
-    <p>Why upgrade one appliance at a time when you can transform the entire kitchen at once?</p>
-    <p>The Smeg CJ01WHBR-6 Collection brings together six beautifully coordinated appliances in Smeg’s unmistakable 50’s-inspired design. From the morning coffee to weekend baking, everything you need is matched, organised and ready to use.</p>
-    <div class="media"><img src="https://smeguk.store/images/Whats-App-Image-2026-07-07-at-23-31-37.jpg" alt="Kitchen appliance unboxing"></div>
-  </section>
+  <section class="content section"><h2>FROM THE FIRST COFFEE TO WEEKEND BAKING</h2><p>Boil the kettle before work. Prepare toast for the family. Blend a morning smoothie. Brew fresh coffee. Mix a homemade cake. Finish with freshly squeezed juice.
 
-  <section class="content">
-    <h2>SIX APPLIANCES ONE COMPLETE KITCHEN UPGRADE.</h2>
-    <p>This carefully selected collection includes:</p>
-    <p>Stand mixer for cakes, bread and family recipes<br>
-    Blender for smoothies, sauces and everyday preparation<br>
-    Electric kettle for quick morning brews<br>
-    Filter coffee machine for rich, freshly brewed coffee<br>
-    Four-slice toaster for effortless family breakfasts<br>
-    Citrus juicer for fresh juice in seconds</p>
-    <p>Instead of choosing between individual appliances, you receive the complete matching six-piece collection.</p>
-    <div class="media"><img src="https://smeguk.store/images/Whats-App-Image-2026-07-07-at-23-31-36.jpg" alt="Smeg appliances in a kitchen"></div>
-  </section>
+Each appliance has its own purpose, but together they create one effortless daily routine.</p><video autoplay="" loop="" playsinline="" preload="metadata" muted="" width="400" height="500" aria-label="Smeg kitchen collection demonstration"><source src="/02/media/collection-04.webm" type="video/webm"></source></video></section>
 
-  <section class="content">
-    <h2>DESIGNED TO BE SEEN BUILT TO BE USED.</h2>
-    <p>The appeal goes far beyond the iconic retro styling.</p>
-    <p>Premium finishes, solid construction and intuitive controls make every appliance feel as good to use as it looks. Display them together on the worktop and instantly give your kitchen a cleaner, more coordinated and sophisticated appearance.</p>
-    <p>It’s the kind of upgrade that changes the feel of the entire room—without replacing the kitchen itself.</p>
-    <div class="media"><img src="https://smegbrasil.cdn.magazord.com.br/img/2024/07/produto/161/01-torradeira-4-fatias-smeg-anni-50-azul-pastel-220v-tsf02pbbr.jpeg?ims=fit-in%2F600x600%2Ffilters%3Afill%28white%29" alt="Smeg toaster"></div>
-  </section>
+  <section class="content tech section"><h2>THE COMPLETE COLLECTION — NOW £119</h2><p>Purchasing six coordinated appliances separately can quickly become expensive. This limited promotional collection brings all six together in one exceptional offer:
 
-  <section class="content">
-    <h2>FROM THE FIRST COFFEE TO WEEKEND BAKING</h2>
-    <p>Boil the kettle before work. Prepare toast for the family. Blend a morning smoothie. Brew fresh coffee. Mix a homemade cake. Finish with freshly squeezed juice.</p>
-    <p>Each appliance has its own purpose, but together they create one effortless daily routine.</p>
-    <div class="media"><img src="https://smeguk.store/images/Whats-App-Image-2026-07-07-at-23-31-37.jpg" alt="Kitchen unboxing"></div>
-  </section>
+Was £399 — Now £119
 
-  <section class="content tech">
-    <h2>THE COMPLETE COLLECTION — NOW £119</h2>
-    <p>Purchasing six coordinated appliances separately can quickly become expensive. This limited promotional collection brings all six together in one exceptional offer:</p>
-    <p>Was £399 — Now £119</p>
-    <p>Free UK delivery included.</p>
-    <p>If the complete collection is still available in your preferred colour, secure yours while the promotional allocation remains available.</p>
+Free UK delivery included.
 
-    <h2>TECHNICAL SPECIFICATIONS</h2>
-    <div class="spec-text">Brand: SMEG
+If the complete collection is still available in your preferred colour, secure yours while the promotional allocation remains available.</p><h2>TECHNICAL SPECIFICATIONS</h2><p>Brand: SMEG
 Voltage: 230V (UK plug, ready to use)
 Style: 50's Retro Collection
-Material: Stainless Steel & Die-Cast Aluminium
-Included Appliances: 6 Premium Kitchen Appliances</div>
-  </section>
+Material: Stainless Steel &amp; Die-Cast Aluminium
+Included Appliances: 6 Premium Kitchen Appliances
+WHAT’S INCLUDED IN YOUR 6-PIECE COLLECTION
+Smeg Stand Mixer
+Perfect for cakes, bread dough, batters and everyday family recipes.
+Smeg 1.5L Blender
+Prepare smoothies, soups, sauces and crushed-ice drinks with ease.
+Smeg 1.7L Electric Kettle
+Fast, convenient boiling with Smeg’s iconic retro-inspired design.
+Smeg 1.4L Filter Coffee Machine
+Brew rich, fresh coffee for relaxed mornings and entertaining guests.
+Smeg Four-Slice Toaster
+Prepare up to four slices at once—ideal for busy family breakfasts.
+Smeg Citrus Juicer
+Enjoy freshly squeezed orange, lemon or grapefruit juice in seconds.
+All six matching appliances are included for £119, with free</p></section>
 
-  <section class="review-wrap">
-    <div class="rating-card">
-      <div class="score">Customer feedback</div>
-      <div class="rating-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-      <small>Verified customer reviews can be shown here</small>
-      <div class="tp">Trustpilot</div>
-      <small>Excellent</small>
-    </div>
+  <section class="review-wrap reviews-section"><div class="trustpilot-header"><div class="tp-left"><h2>4.8</h2><div class="tp-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><p>Based on 21,417 verified reviews</p></div><div class="tp-right"><div class="logo">★ Trustpilot</div><small>Excellent</small></div></div><article class="review-card"><div class="review-header"><img alt="Emily Roberts" loading="lazy" src="/02/media/avatar-emily.jpg"><div><h3>Emily Roberts</h3><span>Verified Buyer</span></div></div><div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="review-title">Absolutely stunning kitchen set</div><div class="review-text">Every appliance feels premium and looks beautiful in my kitchen. Delivery was quick, packaging was excellent and everything works perfectly.</div><img class="review-photo" alt="Photo from Emily Roberts" loading="lazy" src="/02/media/review-emily.jpg"><span class="review-date">Purchased 2 weeks ago</span></article><article class="review-card"><div class="review-header"><img alt="James Walker" loading="lazy" src="/02/media/avatar-james.jpg"><div><h3>James Walker</h3><span>Verified Buyer</span></div></div><div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="review-title">Worth every penny</div><div class="review-text">The coffee machine is incredible and the toaster is much better than expected. High quality products with a luxury finish.</div><img class="review-photo" alt="Photo from James Walker" loading="lazy" src="/02/media/review-james.jpg"><span class="review-date">Purchased 6 days ago</span></article><article class="review-card"><div class="review-header"><img alt="Sarah Thompson" loading="lazy" src="/02/media/avatar-sarah.jpg"><div><h3>Sarah Thompson</h3><span>Verified Buyer</span></div></div><div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="review-title">Amazing quality</div><div class="review-text">Everything matches perfectly. The blender is powerful, the kettle heats very quickly and the overall design is gorgeous.</div><img class="review-photo" alt="Photo from Sarah Thompson" loading="lazy" src="/02/media/review-sarah.jpg"><span class="review-date">Purchased 3 weeks ago</span></article><article class="review-card"><div class="review-header"><img alt="Michael Carter" loading="lazy" src="/02/media/avatar-michael.jpg"><div><h3>Michael Carter</h3><span>Verified Buyer</span></div></div><div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div><div class="review-title">Excellent customer service</div><div class="review-text">Fantastic buying experience. Fast shipping, excellent packaging and the products exceeded all my expectations.</div><img class="review-photo" alt="Photo from Michael Carter" loading="lazy" src="/02/media/review-michael.jpg"><span class="review-date">Purchased 1 month ago</span></article></section>
 
-    <div class="review-card">
-      <div class="reviewer"><img src="https://smeguk.store/images/65.jpg" alt=""><div><b>Emily Roberts</b><br><span>Customer review</span></div></div>
-      <div class="stars"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></div>
-      <h3>Absolutely stunning kitchen set</h3>
-      <p>Every appliance feels premium and looks beautiful in my kitchen.</p>
-      <img class="review-photo" src="https://smeguk.store/images/Whats-App-Image-2026-07-07-at-23-31-37.jpg" alt="">
-    </div>
-  </section>
+  <footer class="footer"><img class="footer-logo" alt="SMEG" loading="lazy" src="/02/media/footer-logo.png"><div class="footer-policies"><h4>POLICIES</h4><p>Business Details</p><p>Cookie Policy</p><p>Delivery Information</p><p>Privacy Policy</p><p>Refund and Returns Policy</p><p>Website Terms and Conditions</p></div><div class="footer-newsletter"><h4>SUBSCRIBE TO OUR NEWSLETTER</h4><form class="newsletter"><input required="" placeholder="E-mail" aria-label="E-mail" type="email"><button type="submit" aria-label="Subscribe">›</button></form></div><div class="footer-service"><h4>CUSTOMER SERVICE CENTER</h4><a href="mailto:support@ukdeals.shop">Email: support@ukdeals.shop</a></div></footer></div>
 
-  <div class="disclosure">Independent retailer landing page. Product names, logos and trademarks belong to their respective owners. Merchant identity, stock and customer-review claims should be verified before accepting payment.</div>
-</div>
-
-<button class="fixed-cta" id="fixedCta">Get the complete set — £119</button>
+<button class="fixed-cta fixed-buy" id="fixedCta" type="button" tabindex="-1">Get the complete set — £119</button>
 
 <script>
-const cards=[...document.querySelectorAll('.color-card')];
-cards.forEach(card=>card.addEventListener('click',()=>{
-  cards.forEach(c=>c.classList.remove('active'));
-  card.classList.add('active');
-  const name=card.dataset.name, src=card.dataset.src;
-  document.getElementById('selectedColor').textContent=name;
-  document.getElementById('productColor').textContent=name;
-  document.getElementById('productThumb').src=src;
+const cards = [...document.querySelectorAll('.color-card')];
+cards.forEach(card => card.addEventListener('click', () => {
+  cards.forEach(c => {
+    const selected = c === card;
+    c.classList.toggle('active', selected);
+    c.setAttribute('aria-pressed', String(selected));
+  });
+  const name = card.dataset.name;
+  document.getElementById('selectedColor').textContent = name;
+  document.getElementById('productColor').textContent = name;
+  const thumbnail = document.getElementById('productThumb');
+  thumbnail.src = card.dataset.src;
+  thumbnail.alt = name;
 }));
-let q=1;const qEl=document.getElementById('qty');
-document.getElementById('minus').onclick=()=>{q=Math.max(1,q-1);qEl.textContent=q};
-document.getElementById('plus').onclick=()=>{q=Math.min(9,q+1);qEl.textContent=q};
-function noCheckout(){alert('Checkout for this product is not connected yet.');}
-document.getElementById('add').onclick=noCheckout;
-document.getElementById('fixedCta').onclick=noCheckout;
-let rem=17*3600+59*60+28;
-setInterval(()=>{rem=Math.max(0,rem-1);h.textContent=String(Math.floor(rem/3600)).padStart(2,'0');m.textContent=String(Math.floor((rem%3600)/60)).padStart(2,'0');s.textContent=String(rem%60).padStart(2,'0')},1000);
-const fc=document.getElementById('fixedCta');
-addEventListener('scroll',()=>fc.classList.toggle('show',scrollY>900));
+
+const gallery = document.querySelector('.swiper-strip');
+const dots = [...document.querySelectorAll('.swiper-pagination button')];
+let currentImage = 0;
+function markImage(index) {
+  currentImage = Math.max(0, Math.min(dots.length - 1, index));
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentImage);
+    if (i === currentImage) dot.setAttribute('aria-current', 'true');
+    else dot.removeAttribute('aria-current');
+  });
+}
+function showImage(index) {
+  markImage(index);
+  gallery.scrollTo({left: currentImage * gallery.clientWidth, behavior: 'smooth'});
+}
+dots.forEach((dot, index) => dot.addEventListener('click', () => showImage(index)));
+gallery.addEventListener('scroll', () => markImage(Math.round(gallery.scrollLeft / gallery.clientWidth)), {passive: true});
+window.addEventListener('resize', () => gallery.scrollTo({left: currentImage * gallery.clientWidth, behavior: 'instant'}));
+
+let q = 1;
+const qEl = document.getElementById('qty');
+document.getElementById('minus').onclick = () => { q = Math.max(1, q - 1); qEl.textContent = q; };
+document.getElementById('plus').onclick = () => { q = Math.min(12, q + 1); qEl.textContent = q; };
+function noCheckout() { alert('Checkout for this product is not connected yet.'); }
+document.getElementById('add').onclick = noCheckout;
+document.getElementById('fixedCta').onclick = noCheckout;
+
+const countdownKey = 'smeg-sale-countdown-deadline';
+let deadline = 0;
+try { deadline = Number(sessionStorage.getItem(countdownKey)); } catch (_) {}
+if (!(deadline > Date.now())) {
+  deadline = Date.now() + (18 * 3600 + 15 * 60 + 5) * 1000;
+  try { sessionStorage.setItem(countdownKey, String(deadline)); } catch (_) {}
+}
+function renderClock() {
+  const remaining = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+  document.getElementById('h').textContent = String(Math.floor(remaining / 3600)).padStart(2, '0');
+  document.getElementById('m').textContent = String(Math.floor(remaining / 60) % 60).padStart(2, '0');
+  document.getElementById('s').textContent = String(remaining % 60).padStart(2, '0');
+}
+renderClock();
+setInterval(renderClock, 1000);
+
+const fixedCta = document.getElementById('fixedCta');
+function updateSticky() {
+  const shown = window.scrollY > 650;
+  fixedCta.classList.toggle('show', shown);
+  fixedCta.tabIndex = shown ? 0 : -1;
+}
+addEventListener('scroll', updateSticky, {passive: true});
+updateSticky();
+
+document.querySelector('.newsletter').addEventListener('submit', event => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  if (!form.reportValidity() || form.parentElement.querySelector('.newsletter-message')) return;
+  const message = document.createElement('p');
+  message.className = 'newsletter-message';
+  message.textContent = 'Thank you for your interest. Please email our customer service team to subscribe.';
+  form.parentElement.appendChild(message);
+});
 </script>
 </body>
 </html>
