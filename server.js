@@ -196,18 +196,36 @@ http.createServer(async (req,res)=>{
 
   let file = path.join(root, pathname === "/" ? "index.html" : pathname.replace(/^\//,""));
   if (!file.startsWith(root)) { res.writeHead(403); return res.end("Forbidden"); }
+
   fs.stat(file,(err,st)=>{
+    if (!err && st.isDirectory()) {
+      file = path.join(file, "index.html");
+      return fs.stat(file,(dirErr,dirStat)=>{
+        if (!dirErr && dirStat.isFile()) {
+          res.writeHead(200,{
+            "Content-Type":"text/html; charset=utf-8",
+            "Cache-Control":"no-cache"
+          });
+          return fs.createReadStream(file).pipe(res);
+        }
+        fs.createReadStream(path.join(root,"index.html"))
+          .on("error",()=>{res.writeHead(404);res.end("Not found");})
+          .once("open",()=>res.writeHead(200,{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-cache"}))
+          .pipe(res);
+      });
+    }
+
     if (!err && st.isFile()) {
       res.writeHead(200,{
         "Content-Type":types[path.extname(file).toLowerCase()]||"application/octet-stream",
         "Cache-Control": path.extname(file).toLowerCase() === ".html" ? "no-cache" : "public, max-age=3600"
       });
-      fs.createReadStream(file).pipe(res);
-    } else {
-      fs.createReadStream(path.join(root,"index.html"))
-        .on("error",()=>{res.writeHead(404);res.end("Not found");})
-        .once("open",()=>res.writeHead(200,{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-cache"}))
-        .pipe(res);
+      return fs.createReadStream(file).pipe(res);
     }
+
+    fs.createReadStream(path.join(root,"index.html"))
+      .on("error",()=>{res.writeHead(404);res.end("Not found");})
+      .once("open",()=>res.writeHead(200,{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-cache"}))
+      .pipe(res);
   });
 }).listen(port, "0.0.0.0", ()=>console.log("Listening on",port));
