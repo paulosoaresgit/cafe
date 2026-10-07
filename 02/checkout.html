@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://*.stripe.com; frame-src https://*.stripe.com https://*.link.com; connect-src 'self' https://*.stripe.com https://*.link.com; img-src 'self' data: https://*.stripe.com https://*.stripe.network; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; form-action 'self' https://*.stripe.com; base-uri 'self'; object-src 'none'">
+  <title>Secure checkout | Smeg Heritage Collection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="/02/checkout.css?v=1">
+  <script src="https://js.stripe.com/endive/stripe.js" defer></script>
+  <script src="/02/checkout.js?v=1" defer></script>
+</head>
+<body>
+  <header class="checkout-header">
+    <a href="/02" aria-label="Smeg collection"><img src="/02/media/logo.png" alt="SMEG"></a>
+    <span class="secure"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5zM12 14v3"/></svg>Secure checkout</span>
+  </header>
+  <main class="checkout-shell">
+    <section class="checkout-main" aria-labelledby="checkout-title">
+      <a class="back-link" href="/02">← Back to collection</a>
+      <nav class="progress" aria-label="Checkout progress"><span>Basket</span><span aria-hidden="true">›</span><strong aria-current="step">Delivery &amp; payment</strong><span aria-hidden="true">›</span><span>Confirmation</span></nav>
+      <p class="eyebrow">YOUR COMPLETE KITCHEN UPGRADE</p>
+      <h1 id="checkout-title">Make it yours.</h1>
+      <p class="intro">Your favourite colour. The complete collection.<br>A few details and you're all set.</p>
+      <section class="payment-panel" aria-labelledby="payment-title">
+        <div class="panel-heading"><span class="number">1</span><div><h2 id="payment-title">Delivery &amp; payment</h2><p>One secure checkout, powered by Stripe.</p></div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5zM12 14v3"/></svg></div>
+        <div class="delivery-box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 4h14v13H1zM15 8h4l4 5v4h-8M5 20a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19 20a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg><div><strong>Free tracked UK delivery</strong><span>Estimated in 2–3 business days</span></div><b>FREE</b></div>
+        <div id="hosted-payment">
+          <p class="payment-copy">Enter your contact information, delivery address and payment details securely with Stripe.</p>
+          <div class="payment-icons" aria-label="Stripe offers eligible payment methods at checkout"><span>VISA</span><span class="mastercard" aria-label="Mastercard"><i></i><i></i></span><span class="amex">AMEX</span><span>Apple Pay</span><span>Google Pay</span></div>
+          <p id="checkout-message" class="message" role="alert" hidden></p>
+          <button id="pay-button" class="pay-button" type="button" disabled><span id="pay-label">Loading secure checkout…</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <p class="secure-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5zM12 14v3"/></svg>Encrypted payment. Your card details stay with Stripe.</p>
+        </div>
+        <div id="embedded-checkout" hidden></div>
+      </section>
+      <div class="trust-row"><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 8 4v6c0 5-8 10-8 10S4 17 4 12V6zM8 12l3 3 5-6"/></svg><strong>Secure payment</strong><span>Powered by Stripe</span></div><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v13H4zM4 7l3-4h10l3 4M12 3v8"/></svg><strong>Complete collection</strong><span>Six matching appliances</span></div><div><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-7M3 3v6h6M12 7v5l3 2"/></svg><strong>Tracked delivery</strong><span>To your UK address</span></div></div>
+    </section>
+    <aside class="order-summary" aria-labelledby="summary-title">
+      <div class="summary-inner">
+        <div class="summary-heading"><h2 id="summary-title">Your collection</h2><span class="summary-badge">6 appliances · 1 set</span></div>
+        <div class="product-preview"><img id="product-image" src="/02/media/colour-light-blue.jpg" alt="Smeg Heritage Collection in Light blue"><span class="quantity-badge" id="quantity-badge">1</span></div>
+        <h3>Smeg Heritage Collection</h3>
+        <p class="product-description">Iconic 50s style. One complete kitchen upgrade.</p>
+        <div class="colour-heading"><span>Colour</span><strong id="selected-colour">Light blue</strong></div>
+        <div id="colour-options" class="colour-options" role="group" aria-label="Choose a colour"></div>
+        <div class="quantity-row"><span>Quantity</span><div class="quantity-picker"><button id="decrease" type="button" aria-label="Decrease quantity" disabled>−</button><output id="quantity" aria-label="Quantity" aria-live="polite">1</output><button id="increase" type="button" aria-label="Increase quantity">+</button></div></div>
+        <div class="summary-line"><span>Subtotal</span><div><s id="compare-price">£399.00</s><strong id="subtotal">£119.00</strong></div></div>
+        <div class="summary-line"><span>Delivery</span><strong class="free">FREE</strong></div>
+        <div class="summary-total"><strong>Total</strong><div><span>GBP</span><strong id="total" aria-live="polite">£119.00</strong></div></div>
+        <div class="savings"><span>✓</span> You save <strong id="savings">£280.00</strong> on your collection</div>
+      </div>
+    </aside>
+  </main>
+  <footer class="checkout-footer"><a href="/02">Return to collection</a><span>Secure checkout powered by <b>stripe</b></span></footer>
+</body>
+</html>

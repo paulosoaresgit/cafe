@@ -241,9 +241,14 @@ let q = 1;
 const qEl = document.getElementById('qty');
 document.getElementById('minus').onclick = () => { q = Math.max(1, q - 1); qEl.textContent = q; };
 document.getElementById('plus').onclick = () => { q = Math.min(12, q + 1); qEl.textContent = q; };
-function noCheckout() { alert('Checkout for this product is not connected yet.'); }
-document.getElementById('add').onclick = noCheckout;
-document.getElementById('fixedCta').onclick = noCheckout;
+function openCheckout() {
+  const selected = document.querySelector('.color-card.active');
+  const colours = {'Light blue':'light-blue', 'White':'white', 'Black':'black', 'Light Green':'light-green', 'Red':'red', 'Pink':'pink'};
+  const params = new URLSearchParams({colour: colours[selected.dataset.name], quantity: String(q)});
+  location.assign('/02/checkout.html?' + params.toString());
+}
+document.getElementById('add').onclick = openCheckout;
+document.getElementById('fixedCta').onclick = openCheckout;
 
 const countdownKey = 'smeg-sale-countdown-deadline';
 let deadline = 0;

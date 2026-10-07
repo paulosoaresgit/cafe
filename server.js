@@ -2,11 +2,18 @@ const http = require("http");
 const https = require("https");
 const fs = require("fs");
 const path = require("path");
+const Stripe = require("stripe");
+const {createSmegCheckoutHandler} = require("./lib/smeg-checkout");
 
 const root = __dirname;
 const port = process.env.PORT || 3000;
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || "";
 const STRIPE_PUBLISHABLE_KEY = process.env.STRIPE_PUBLISHABLE_KEY || "";
+const smegCheckout = createSmegCheckoutHandler({
+  stripe: STRIPE_SECRET_KEY ? new Stripe(STRIPE_SECRET_KEY, {maxNetworkRetries: 2, timeout: 20000}) : null,
+  publishableKey: STRIPE_PUBLISHABLE_KEY,
+  webhookSecret: process.env.STRIPE_WEBHOOK_SECRET || ""
+});
 const STRIPE_FALLBACK_URL = "https://buy.stripe.com/dRm8wP0zvfL85qZdyNfYY0z";
 const PRODUCT = {
   name: "Ninja Luxe Café Premier Espresso Machine",
@@ -107,6 +114,8 @@ http.createServer(async (req,res)=>{
 
   const url = new URL(req.url, "http://localhost");
   const pathname = decodeURIComponent(url.pathname);
+
+  if (await smegCheckout(req, res, url)) return;
 
   if (req.method === "GET" && pathname === "/api/stripe-config") {
     return sendJson(res, 200, {
